@@ -19,6 +19,14 @@ class CreateUsersTable extends Migration
             $table->string('password', 60);
             $table->rememberToken();
             $table->timestamps();
+            $table->string('profile_pic')->nullable();
+            $table->string('profession');
+            $table->string('interests', 200)->nullable();
+            $table->string('about', 1000)->nullable();
+            $table->string('portfolio', 1000)->nullable();
+            $table->string('diploma_certificate', 300)->nullable();
+            $table->integer('friends_count')->unsigned()->nullable();
+
         });
     }
 
