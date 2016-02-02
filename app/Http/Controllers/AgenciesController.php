@@ -31,8 +31,8 @@ class AgenciesController extends Controller
 	public function store(AgencyRequest $request){
     	
     	Auth::user()->agency()->create($request->all());
-
-    	return redirect('agencies');
+    	flash()->success('Agency has been successfully created');
+    	return redirect('/');
     }
 
     //prikaz agencije(profila) po id-u
@@ -43,12 +43,16 @@ class AgenciesController extends Controller
 
     //prikaz forme za uređivanje agencije
     public function edit($id){
-
+    	$agency = Agency::findOrFail($id);
+    	return view('agencies.edit', compact('agency'));
     }
 
     //spremanje promjena u bazu
-    public function update($id){
-
+    public function update($id, AgencyRequest $request){
+    	$agency = Agency::findOrFail($id);
+    	$agency->update($request->all());
+    	flash()->success('Agency has been successfully updated');
+    	return redirect('agencies');
     }
 
     //brisanje agencije po id-u

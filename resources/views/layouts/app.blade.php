@@ -54,6 +54,7 @@
                         <li><a href="{{ url('/profile') }}"><i class="icon-user"></i> Profile</a></li>
                         <li><a href="#"><i class="icon-bubble4"></i> Messages</a></li>
                         <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
+                        <li><a href="/agencies/create"><i class="icon-camera6"></i> Create an Agency Page</a></li>
                         <li><a href="{{ url('/logout') }}"><i class="icon-exit"></i> Logout</a></li>
                     </ul>
                 </li>
@@ -64,6 +65,7 @@
     <div class="page-container">
         <div class="page-content">
             <div class="page-header">
+                @include('flash::message')
                 <div class="page-title">
                 @yield('header')
                 </div>

@@ -13,4 +13,9 @@ class Agency extends Model
     	'headquarters', 
     	'foundation_year',
     ];
+
+
+    public function user(){
+    	$this->belongsTo('App\User');
+    }
 }

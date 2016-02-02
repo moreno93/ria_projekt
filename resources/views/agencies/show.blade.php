@@ -10,6 +10,15 @@
                     Stranica agencije sa id-em {{ $agency->id }} i imenom {{ $agency->agency_name }}
                     <br/>
                     {{ $agency->description }}
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                        <a href ="/agencies/{{ $agency->id }}/edit">
+                            <button type="button" class="btn btn-primary">
+                                <i class="fa fa-btn"></i>Edit
+                        </button>
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>
