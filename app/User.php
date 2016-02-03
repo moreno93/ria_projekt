@@ -27,4 +27,8 @@ class User extends Authenticatable
     public function agency(){
         return $this->hasOne('App\Agency');
     }
+
+    public function address(){
+        return $this->hasOne('App\Address');
+    }
 }

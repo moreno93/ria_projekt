@@ -16,6 +16,7 @@
                             <span>
                             <a class="btn btn-icon btn-success" href="#">
                                 <i class="icon-pencil"></i>
+                                
                             </a>
                             <a class="btn btn-icon btn-success" href="#">
                                 <i class="icon-remove"></i>
@@ -56,13 +57,9 @@
                 <li>
                     <a href="#">Connections</a>
                 </li>
-                <li>
-                <a href="#">Messages<span class="label label-danger">14</span></a>
-                </li>
             </ul>
         </div>   
     </div>
-    <div class="col-lg-10">
     <div class="col-lg-10">
 
                     <!-- Page tabs -->
@@ -2491,20 +2488,29 @@
                             <div class="tab-pane fade" id="settings">
 
                                 <!-- Profile information -->
-                                <form action="#" class="block" role="form">
+                                <form action="{{ url('/profile/update') }}" method="POST" class="block" role="form">
+                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <h6 class="heading-hr"><i class="icon-user"></i> Profile information:</h6>
 
                                     <div class="block-inner">
+                                                                                
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label>First name</label>
-                                                    <input type="text" value="Eugene" class="form-control">
+                                                    <label>Full name</label>
+                                                    <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control">
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label>Last name</label>
-                                                    <input type="text" value="Kopyov" class="form-control">
+
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label>About</label>
+                                                    <textarea style="resize:none" class="form-control" rows="5" name="about" value="{{ Auth::user()->about }}"></textarea>
                                                 </div>
+
                                             </div>
                                         </div>
 
@@ -2512,11 +2518,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Address line 1</label>
-                                                    <input type="text" value="Ring street 12" class="form-control">
+                                                    <input type="text" name="address_line1" value="{{ Auth::user()->name }}" class="form-control">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Address line 2</label>
-                                                    <input type="text" value="building D, flat #67" class="form-control">
+                                                    <input type="text" name="address_line2" value="building D, flat #67" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -2525,15 +2531,15 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>City</label>
-                                                    <input type="text" value="Munich" class="form-control">
+                                                    <input type="text" name="city" value="Munich" class="form-control">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>State/Province</label>
-                                                    <input type="text" value="Bayern" class="form-control">
+                                                    <input type="text" name="state" value="Bayern" class="form-control">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>ZIP code</label>
-                                                    <input type="text" value="1031" class="form-control">
+                                                    <input type="text" name="zip_code" value="1031" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -2542,33 +2548,17 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Email</label>
-                                                    <input type="text" readonly="readonly" value="eugene@kopyov.com" class="form-control">
+                                                    <input type="text" name="email" readonly="readonly" value="{{ Auth::user()->email }}" class="form-control">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Your country:</label>
-                                                    <select data-placeholder="Choose a Country..." class="select-full" tabindex="2">
+                                                    <select name="country" data-placeholder="Choose a Country..." class="select-full" tabindex="2">
                                                         <option value=""></option> 
                                                         <option value="Cambodia">Cambodia</option> 
                                                         <option value="Cameroon">Cameroon</option> 
                                                         <option value="Canada">Canada</option> 
                                                         <option value="Cape Verde">Cape Verde</option> 
                                                     </select>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Phone #</label>
-                                                    <input type="text" value="+99-99-9999-9999" data-mask="+99-99-9999-9999" class="form-control">
-                                                    <span class="help-block">+99-99-9999-9999</span>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <label>Upload profile image:</label>
-                                                    <input type="file" class="styled form-control" id="report-screenshot">
-                                                    <span class="help-block">Accepted formats: gif, png, jpg. Max file size 2Mb</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -2580,25 +2570,12 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <label>Username:</label>
-                                                <input type="text" value="Kopyov" readonly="readonly" class="form-control">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>Current password:</label>
-                                                <input type="password" value="password" readonly="readonly" class="form-control">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
                                                 <label>New password:</label>
-                                                <input type="password" placeholder="Enter new password" class="form-control">
+                                                <input type="password" name="password" placeholder="Enter new password" class="form-control">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Repeat password:</label>
-                                                <input type="password" placeholder="Repeat new password" class="form-control">
+                                                <input type="password" name="r_password" placeholder="Repeat new password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
