@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('portfolio', 1000)->nullable();
             $table->string('diploma_certificate', 300)->nullable();
             $table->integer('friends_count')->unsigned()->nullable();
-
+            $table->integer('permission')->unsigned()->nullable();
         });
     }
 

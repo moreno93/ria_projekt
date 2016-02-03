@@ -43,3 +43,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/profile/update', 'ProfileController@update');
     Route::resource('agencies', 'AgenciesController');
 });
+Route::get('foo' , ['middleware' => 'manager', function()
+{
+    return 'samo admin';
+}]);

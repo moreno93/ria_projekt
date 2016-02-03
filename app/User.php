@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'profession'
+        'name', 'email', 'password', 'profession', 'permission'
     ];
 
     /**
@@ -30,5 +30,10 @@ class User extends Authenticatable
 
     public function address(){
         return $this->hasOne('App\Address');
+    }
+
+    public function isATeamManager(){
+
+        return true;
     }
 }
