@@ -44,6 +44,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('agencies', 'AgenciesController');
     Route::get('/agencies/user/{user}', 'AgenciesController@userAgency');
 
+    Route::resource('auditions', 'AuditionsController');
+    Route::get('/auditions/agency/{agency}', 'AuditionsController@listAuditionsOfAgency');
+
     Route::get('foo' , ['middleware' => ['auth', 'admin'], function()
     {
         return 'samo admin';

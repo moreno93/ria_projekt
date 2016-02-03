@@ -10,41 +10,22 @@
                 <div class="panel-heading">Dashboard</div>
 
                     <div class="panel-body">
-                    Stranica agencije sa id-em {{ $agency->id }} i imenom {{ $agency->agency_name }}
+                    Stranica audicije sa id-em {{ $audition->id }} i imenom {{ $audition->audition_name }}
                     <br/>
-                    {{ $agency->description }}
-
-                        @if(Auth::user()->id == $agency->user_id)
+                    {{ $audition->description }}
+                        @if(Auth::user()->agency()->first()->id == $audition->agency_id)
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href ="/agencies/{{ $agency->id }}/edit">
+                                    <a href ="/auditions/{{ $audition->id }}/edit">
                                     <button type="button" class="btn btn-primary">
                                     <i class="fa fa-btn"></i>Edit
                                     </button>
                                     </a>
                                     </button>
                                 </div>
-                                
-                                <div class="col-md-6 col-md-offset-4">
-                                    <a href="/auditions/create">
-                                        <button type="button" class="btn btn-primary">
-                                        <i class="fa fa-btn"></i>Post an Audition
-                                        </button>
-                                    </a>
-                                    </button>
-                                </div>
 
                                 <div class="col-md-6 col-md-offset-4">
-                                    <a href="/auditions/agency/{{ $agency->id }}">
-                                        <button type="button" class="btn btn-primary">
-                                        <i class="fa fa-btn"></i>Show my Auditions
-                                        </button>
-                                    </a>
-                                    </button>
-                                </div>
-                                
-                                <div class="col-md-6 col-md-offset-4">
-                                    <form class="delete" action="/agencies/{{ $agency->id }}" method="POST">
+                                    <form class="delete" action="/auditions/{{ $audition->id }}" method="POST">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                                         <button type="submit" class="btn btn-danger">
@@ -60,6 +41,7 @@
         </div>
     </div>
 </div>
+
 <script>
     $(".delete").submit(function(){
         return confirm("Are you sure you want to delete this item?");

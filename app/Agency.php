@@ -18,4 +18,8 @@ class Agency extends Model
     public function user(){
     	$this->belongsTo('App\User');
     }
+
+    public function auditions(){
+        return $this->hasMany('App\Audition');
+    }
 }

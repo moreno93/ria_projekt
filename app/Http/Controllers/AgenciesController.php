@@ -46,6 +46,9 @@ class AgenciesController extends Controller
     //prikaz forme za uređivanje agencije
     public function edit($id){
     	$agency = Agency::findOrFail($id);
+        if (Auth::user()->id != $agency->user_id){
+            return redirect('/');
+        }
     	return view('agencies.edit', compact('agency'));
     }
 
