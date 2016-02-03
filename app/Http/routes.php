@@ -42,8 +42,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/profile', 'ProfileController@index');
     Route::post('/profile/update', 'ProfileController@update');
     Route::resource('agencies', 'AgenciesController');
+    Route::get('foo' , ['middleware' => ['auth', 'admin'], function()
+    {
+        return 'samo admin';
+    }]);
 });
-Route::get('foo' , ['middleware' => 'manager', function()
-{
-    return 'samo admin';
-}]);
+

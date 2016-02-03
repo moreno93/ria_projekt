@@ -32,8 +32,8 @@ class User extends Authenticatable
         return $this->hasOne('App\Address');
     }
 
-    public function isATeamManager(){
+    public function isAnAdmin(){
 
-        return true;
+        return false;
     }
 }
