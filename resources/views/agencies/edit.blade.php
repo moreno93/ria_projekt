@@ -43,7 +43,7 @@
                         <label class="col-md-4 control-label">Headquarters</label>
 
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="headquarters" value="{{ $agency->headquarters }}" >{{ $agency->headquarters }}
+                            <input type="text" class="form-control" name="headquarters" value="{{ $agency->headquarters }}" >
 
                             @if ($errors->has('headquarters'))
                                 <span class="help-block">

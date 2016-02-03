@@ -54,7 +54,12 @@
                         <li><a href="{{ url('/profile') }}"><i class="icon-user"></i> Profile</a></li>
                         <li><a href="#"><i class="icon-bubble4"></i> Messages</a></li>
                         <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
-                        <li><a href="/agencies/create"><i class="icon-camera6"></i> Create an Agency Page</a></li>
+
+                        @if (Auth::user()->agency()->first())
+                            <li><a href="/agencies/user/{{ Auth::user()->agency()->first()->user_id }}"><i class="icon-camera6"></i> View your Agency Page</a></li>
+                        @else
+                            <li><a href="/agencies/create"><i class="icon-camera6"></i> Create an Agency Page</a></li>
+                        @endif
                         <li><a href="{{ url('/logout') }}"><i class="icon-exit"></i> Logout</a></li>
                     </ul>
                 </li>

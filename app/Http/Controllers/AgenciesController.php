@@ -17,13 +17,15 @@ class AgenciesController extends Controller
 		$this->middleware('auth');
 	}
 
-	//vraca sve agencije
 	public function index(){
-		return Agency::all();
+		return redirect('agencies/create');
 	}
 
 	//prikazi formu za kreiranje agencije
 	public function create(){
+        if (Auth::user()->agency()->first()){
+            return view('agencies.exists_error');
+        }
 		return view('agencies.create');
 	}
 
@@ -52,11 +54,18 @@ class AgenciesController extends Controller
     	$agency = Agency::findOrFail($id);
     	$agency->update($request->all());
     	flash()->success('Agency has been successfully updated');
-    	return redirect('agencies');
+    	return redirect('/agencies/' . $id);
     }
 
     //brisanje agencije po id-u
     public function destroy($id){
+        Agency::where('id', $id)->delete();
+        flash()->success('Agency has been successfully deleted');
+        return redirect('/');
+    }
 
+    public function userAgency($id){
+        $agency = Agency::where('user_id', $id)->first();    
+        return view('agencies.show', compact('agency'));
     }
 }
