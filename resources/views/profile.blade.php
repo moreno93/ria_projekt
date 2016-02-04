@@ -2584,11 +2584,11 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>New password:</label>
-                                                <input type="password" name="password" placeholder="Enter new password" class="form-control">
+                                                <input type="password" readonly="readonly" placeholder="Enter new password" class="form-control">
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Repeat password:</label>
-                                                <input type="password" name="r_password" placeholder="Repeat new password" class="form-control">
+                                                <input type="password" readonly="readonly" placeholder="Repeat new password" class="form-control">
                                             </div>
                                         </div>
                                     </div>
