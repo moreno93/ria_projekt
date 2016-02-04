@@ -8,31 +8,33 @@
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
-
+                    
                     <div class="panel-body">
                     Stranica audicije sa id-em {{ $audition->id }} i imenom {{ $audition->audition_name }}
                     <br/>
                     {{ $audition->description }}
-                        @if(Auth::user()->agency()->first()->id == $audition->agency_id)
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <a href ="/auditions/{{ $audition->id }}/edit">
-                                    <button type="button" class="btn btn-primary">
-                                    <i class="fa fa-btn"></i>Edit
-                                    </button>
-                                    </a>
-                                    </button>
-                                </div>
-
-                                <div class="col-md-6 col-md-offset-4">
-                                    <form class="delete" action="/auditions/{{ $audition->id }}" method="POST">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                                        <button type="submit" class="btn btn-danger">
-                                            Delete
+                        @if(Auth::user()->agency()->first())
+                            @if(Auth::user()->agency()->first()->id == $audition->agency_id)
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <a href ="/auditions/{{ $audition->id }}/edit">
+                                        <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-btn"></i>Edit
                                         </button>
-                                    </form>
-                                </div>
+                                        </a>
+                                        </button>
+                                    </div>
+
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <form class="delete" action="/auditions/{{ $audition->id }}" method="POST">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                                            <button type="submit" class="btn btn-danger">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endif
                             @endif
                         </div>
                     </div>
