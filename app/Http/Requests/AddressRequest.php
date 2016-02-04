@@ -24,7 +24,7 @@ class AddressRequest extends Request
     public function rules()
     {
         return [
-            //
+            'zip_code' => 'min:5|max:5',
         ];
     }
 }

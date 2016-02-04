@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
+	protected $table = 'address';
+	
     protected $fillable = [
     	'user_id',
     	'country',
@@ -15,4 +17,8 @@ class Address extends Model
     	'address_line1',
     	'address_line2',
     ];
+
+    public function user(){
+    	$this->belongsTo('App\User');
+    }
 }

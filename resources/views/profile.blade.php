@@ -11,16 +11,27 @@
             <div class="block">
                 <div class="thumbnail">
                     <div class="thumb">
-                        <img src="http://placehold.it/300" alt="">
+                        @if ( Auth::user()->profile_pic )
+                            <img src="{{ Auth::user()->profile_pic }}" alt="">
+                        @else
+                            <img src="images/profile_pic/default.jpg" alt="">
+                        @endif
+                        
                         <div class="thumb-options">
                             <span>
-                            <a class="btn btn-icon btn-success" href="#">
-                                <i class="icon-pencil"></i>
-                                
-                            </a>
-                            <a class="btn btn-icon btn-success" href="#">
-                                <i class="icon-remove"></i>
-                            </a>
+                                <form action="{{ url('/profile/update_pic') }}" method="POST" class="block" role="form" enctype="multipart/form-data">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <button id="btnfile" class="btn btn-icon btn-success" onclick="$('#profile_pic').trigger('click'); return false;">
+                                        <i class="icon-pencil"></i>
+                                    </button>
+                                    <div style="display:none;" class="file_wrapper">
+                                         <input name="profile_pic" type="file" id="profile_pic" onchange="this.form.submit()"> 
+                                    </div>
+                                    
+                                    <a class="btn btn-icon btn-success" href="#">
+                                        <i class="icon-remove"></i>
+                                    </a>
+                                </form>
                             </span>
                         </div>
                     </div>
@@ -2489,7 +2500,8 @@
 
                                 <!-- Profile information -->
                                 <form action="{{ url('/profile/update') }}" method="POST" class="block" role="form">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <h6 class="heading-hr"><i class="icon-user"></i> Profile information:</h6>
 
                                     <div class="block-inner">
@@ -2508,7 +2520,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <label>About</label>
-                                                    <textarea style="resize:none" class="form-control" rows="5" name="about" value="{{ Auth::user()->about }}"></textarea>
+                                                    <textarea style="resize:none" class="form-control" rows="5" name="about">{{ Auth::user()->about }}</textarea>
                                                 </div>
 
                                             </div>
@@ -2518,11 +2530,11 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Address line 1</label>
-                                                    <input type="text" name="address_line1" value="{{ Auth::user()->name }}" class="form-control">
+                                                    <input type="text" name="address_line1" value="{{ Auth::user()->address->address_line1 }}" class="form-control">
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Address line 2</label>
-                                                    <input type="text" name="address_line2" value="building D, flat #67" class="form-control">
+                                                    <input type="text" name="address_line2" value="{{ Auth::user()->address->address_line2 }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -2531,15 +2543,15 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>City</label>
-                                                    <input type="text" name="city" value="Munich" class="form-control">
+                                                    <input type="text" name="city" value="{{ Auth::user()->address->city }}" class="form-control">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>State/Province</label>
-                                                    <input type="text" name="state" value="Bayern" class="form-control">
+                                                    <input type="text" name="state" value="{{ Auth::user()->address->state }}" class="form-control">
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>ZIP code</label>
-                                                    <input type="text" name="zip_code" value="1031" class="form-control">
+                                                    <input type="text" name="zip_code" value="{{ Auth::user()->address->zip_code }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -2552,9 +2564,10 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Your country:</label>
-                                                    <select name="country" data-placeholder="Choose a Country..." class="select-full" tabindex="2">
+                                                    <select name="country" data-placeholder="{{ Auth::user()->address->country }}" class="select-full" tabindex="2">
                                                         <option value=""></option> 
-                                                        <option value="Cambodia">Cambodia</option> 
+                                                        <option value="Cambodia">Cambodia</option>
+                                                        <option value="Croatia">Croatia</option> 
                                                         <option value="Cameroon">Cameroon</option> 
                                                         <option value="Canada">Canada</option> 
                                                         <option value="Cape Verde">Cape Verde</option> 

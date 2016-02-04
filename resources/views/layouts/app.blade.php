@@ -22,8 +22,6 @@
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
 
-    
-
 </head>
 <body id="app-layout">
     <div class="navbar navbar-inverse" role="navigation">
@@ -125,5 +123,6 @@
     <script src="{{ asset('js/application.js') }}"></script>
 
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
 </body>
 </html>

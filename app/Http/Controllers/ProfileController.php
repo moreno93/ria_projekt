@@ -9,6 +9,8 @@ use App\Address;
 use App\Http\Requests;
 use App\Http\Requests\AddressRequest;
 use App\Http\Controllers\Controller;
+use Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProfileController extends Controller
 {
@@ -20,6 +22,7 @@ class ProfileController extends Controller
 	public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -30,6 +33,7 @@ class ProfileController extends Controller
     public function index()
     {
     	return view('profile');
+
     }
 
     /**
@@ -37,15 +41,29 @@ class ProfileController extends Controller
      * @return [type] [description]
      */
     public function update(Request $request, AddressRequest $Arequest)
-    {
-    	Auth::user()->update($request->all());
-		Auth::user()->address()->address_line1 = $Arequest->address_line1;
-		Auth::user()->address()->address_line2 = $Arequest->address_line2;
-		Auth::user()->address()->city = $Arequest->city;
-		Auth::user()->address()->state = $Arequest->state;
-		Auth::user()->address()->zip_code = $Arequest->zip_code;
-		Auth::user()->address()->country = $Arequest->country;
-		
+    { 	
+    	
+    	$user = Auth::user()->update($request->all());
+    	$address = Auth::user()->address()->update(['address_line1' => $Arequest->address_line1]);
+		$address = Auth::user()->address()->update(['address_line2' => $Arequest->address_line2]);
+		$address = Auth::user()->address()->update(['city' => $Arequest->city]);
+		$address = Auth::user()->address()->update(['state' => $Arequest->state]);
+		$address = Auth::user()->address()->update(['zip_code' => $Arequest->zip_code]);
+		$address = Auth::user()->address()->update(['country' => $Arequest->country]);
+
         return redirect('/profile');
     }
+
+    public function update_pic(Request $request)
+    {
+
+    	$img_path = 'images/profile_pic/';
+    	$pic = $request->file('profile_pic');
+    	$img = Image::canvas(300, 300, '#ccc')->save($img_path . 'default.jpg');
+    	$img = Image::make($pic)->resize(300, 300)->save($img_path . Auth::user()->id. '.jpg');
+    	$user = Auth::user()->update(['profile_pic' => $img_path . Auth::user()->id. '.jpg']);
+    
+		return redirect('/profile');
+    }
+
 }

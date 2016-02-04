@@ -38,9 +38,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/', function () {
     return view('welcome');
 	});
+	Route::get('/profile/phpinfo', function (){
+		return phpinfo();
+	});
     Route::get('/home', 'HomeController@index');
     Route::get('/profile', 'ProfileController@index');
-    Route::post('/profile/update', 'ProfileController@update');
+    Route::put('/profile/update', 'ProfileController@update');
+    Route::post('/profile/update_pic', 'ProfileController@update_pic');
     Route::resource('agencies', 'AgenciesController');
     Route::get('/agencies/user/{user}', 'AgenciesController@userAgency');
 
