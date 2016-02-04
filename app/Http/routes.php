@@ -50,6 +50,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::resource('auditions', 'AuditionsController');
     Route::get('/auditions/agency/{agency}', 'AuditionsController@listAuditionsOfAgency');
+    Route::get('auditions/{auditions}/apply', 'AuditionsController@userApply');
+    Route::get('auditions/{auditions}/users', 'AuditionsController@listAppliedUsers');
 
     Route::get('foo' , ['middleware' => ['auth', 'admin'], function()
     {

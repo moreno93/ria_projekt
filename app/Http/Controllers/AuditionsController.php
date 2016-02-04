@@ -63,8 +63,24 @@ class AuditionsController extends Controller
         return redirect('/');
     }
 
+    //izlistavanje svih audicija neke agencije
     public function listAuditionsOfAgency($id){
         $auditions = Audition::where('agency_id', $id)->latest()->get();   
         return view('auditions.list', compact('auditions'));
+    }
+
+    //prijavljivanje usera na audiciju
+    public function userApply($id){
+        if(Audition::findOrFail($id)->users->contains(Auth::user())){
+            return view('auditions.exists_error');
+        }
+        Audition::findOrFail($id)->users()->attach(Auth::user()->id);
+        flash()->success('You have been successfully applied to this audition');
+        return redirect('/auditions/' . $id);
+    }
+
+    public function listAppliedUsers($id){
+        $users = Audition::findOrFail($id)->users;
+        return view('auditions.list_users', compact('users'));
     }
 }

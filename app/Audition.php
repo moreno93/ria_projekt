@@ -14,4 +14,8 @@ class Audition extends Model
     public function agency(){
     	return $this->belongsTo('App\Agency');
     }
+
+    public function users(){
+    	return $this->belongsToMany('App\User');
+    }
 }

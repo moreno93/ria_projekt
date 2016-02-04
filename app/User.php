@@ -36,4 +36,8 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function auditions(){
+        return $this->belongsToMany('App\Audition');
+    }
 }
