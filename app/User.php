@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+
 
 class User extends Authenticatable
 {
@@ -12,7 +15,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'profession', 'permission', 'about', 'profile_pic',
+        'name',
+        'email',
+        'password',
+        'profession',
+        'permission',
+        'about',
+        'profile_pic',
+        'interests',
     ];
 
     /**
@@ -34,7 +44,11 @@ class User extends Authenticatable
 
     public function isAnAdmin(){
 
-        return false;
+        if (Auth::user()->permission == "5"){
+            return true;
+        }
+        else
+            return false;
     }
 
     public function auditions(){

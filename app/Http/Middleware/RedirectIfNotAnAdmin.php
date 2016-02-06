@@ -3,7 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use DB;
+
+
 
 class RedirectIfNotAnAdmin
 {
@@ -16,7 +17,6 @@ class RedirectIfNotAnAdmin
      */
     public function handle($request, Closure $next)
     {
-
         if (!$request->user()->isAnAdmin())
         {
             return redirect('/home');
