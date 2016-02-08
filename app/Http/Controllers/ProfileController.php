@@ -42,7 +42,6 @@ class ProfileController extends Controller
      */
     public function update(Request $request, AddressRequest $Arequest)
     { 	
-    	
     	$user = Auth::user()->update($request->all());
     	$address = Auth::user()->address()->update(['address_line1' => $Arequest->address_line1]);
 		$address = Auth::user()->address()->update(['address_line2' => $Arequest->address_line2]);

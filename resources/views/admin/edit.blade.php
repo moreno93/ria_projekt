@@ -10,7 +10,8 @@
             <div class="panel-body">
                 <form class="form-horizontal" role="form" method="POST" action="{{ action('AdminController@update', ['id' => $user->id]) }}">
                     {!! csrf_field() !!}
-
+                    <input type="hidden" name="_method" value="PUT">
+                    
                     <div class="form-group">
                         <label class="col-md-4 control-label">Name</label>
 
@@ -33,8 +34,15 @@
                         <label class="col-md-4 control-label">Profession</label>
 
                         <div class="col-md-6">
-                            <input type="text" class="form-control" name="profession" value="{{ $user->profession }}">
-
+                            <select class="form-control" name="profession">
+                              <option value="Director" @if($user->profession == 'Director') selected @endif>Director</option>
+                              <option value="Producer" @if($user->profession == 'Producer') selected @endif>Producer</option>
+                              <option value="Cameraman" @if($user->profession == 'Cameraman') selected @endif>Cameraman</option>
+                              <option value="Film Editor" @if($user->profession == 'Film Editor') selected @endif>Film editor</option>
+                              <option value="Sound Designer" @if($user->profession == 'Sound Designer') selected @endif>Sound designer</option>
+                              <option value="Actor" @if($user->profession == 'Actor') selected @endif>Actor</option>
+                            </select>
+                            
                         </div>
                     </div>
 
@@ -46,8 +54,6 @@
 
                         </div>
                     </div>
-
-                    <input type="hidden" name="_method" value="PUT">
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">

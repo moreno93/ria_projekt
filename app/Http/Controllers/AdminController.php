@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserRequest;
@@ -30,6 +30,7 @@ class AdminController extends Controller
 
     //spremanje promjena u bazu
     public function update($id, AdminUserRequest $request){
+
         $user = User::findOrFail($id);
         $user->update($request->all());
         flash()->success('User has been successfully updated');
