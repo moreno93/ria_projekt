@@ -65,8 +65,4 @@ class User extends Authenticatable
     public function auditions(){
         return $this->belongsToMany('App\Audition');
     }
-
-    public function setPasswordAttribute($value){
-        $this->attributes['password'] = bcrypt($value);
-    }
 }

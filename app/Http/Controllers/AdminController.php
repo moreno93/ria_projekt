@@ -54,7 +54,15 @@ class AdminController extends Controller
 
     //spremi usera u bazu
     public function store(AdminUserRequest $request){
-        User::create($request->all());
+
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->profession = $request->profession;
+
+        $user->save();
+
 
         flash()->success('A new user has been successfully created');
         return redirect('/admin');
