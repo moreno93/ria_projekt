@@ -38,7 +38,6 @@ class SearchController extends Controller
     public function users(){
     	$query = session('query');
     	if (!User::typeExists()){
-    		User::putMapping($ignoreConflicts = true);
     		User::addAllToIndex();
     	}
     	$users = User::search($query);
@@ -48,7 +47,6 @@ class SearchController extends Controller
     public function agencies(){
     	$query = session('query');
     	if (!Agency::typeExists()){
-    		Agency::putMapping($ignoreConflicts = true);
     		Agency::addAllToIndex();
     	}
     	$agencies = Agency::search($query);
@@ -60,7 +58,6 @@ class SearchController extends Controller
     	$query = session('query');
 
     	if (!Audition::typeExists()){
-    		Audition::putMapping($ignoreConflicts = true);
     		Audition::addAllToIndex();
     	}
     	$auditions = Audition::search($query);
