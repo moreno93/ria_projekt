@@ -49,7 +49,7 @@
                         <i class="caret"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right icons-right">
-                        <li><a href="{{ url('/profile') }}"><i class="icon-user"></i> Profile</a></li>
+                        <li><a href="/profile/{{ Auth::user()->id }} "><i class="icon-user"></i> Profile</a></li>
                         @if (Auth::user()->agency()->first())
                             <li><a href="/agencies/user/{{ Auth::user()->agency()->first()->user_id }}"><i class="icon-camera6"></i> View your Agency Page</a></li>
                         @else

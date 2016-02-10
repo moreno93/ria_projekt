@@ -28,17 +28,16 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the user profile.
-     *
-     * @return \Illuminate\Http\Response
+     * Show user profile
+     * @param  [type] $id [description]
+     * @return [type]     [description]
      */
-    public function index()
+    public function show($id)
     {
-    	return view('profile');
-
+    	$user = User::findOrFail($id);
+    	return view('profile', compact('user'));
     }
 
-  
     /**
      * [edit description]
      * @return [type] [description]
@@ -73,9 +72,16 @@ class ProfileController extends Controller
 		$address = Auth::user()->address()->update(['zip_code' => $Arequest->zip_code]);
 		$address = Auth::user()->address()->update(['country' => $Arequest->country]);
 
-        return redirect('/profile');
+		$userId = Auth::user()->id;
+
+        return redirect('/profile/' . $userId);
     }
 
+    /**
+     * [update_pic description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function update_pic(Request $request)
     {
 
@@ -85,7 +91,9 @@ class ProfileController extends Controller
     	$img = Image::make($pic)->resize(300, 300)->save($img_path . Auth::user()->id. '.jpg');
     	$user = Auth::user()->update(['profile_pic' => $img_path . Auth::user()->id. '.jpg']);
     
-		return redirect('/profile');
+		$userId = Auth::user()->id;
+
+        return redirect('/profile/' . $userId);
     }
 
 }
