@@ -31,18 +31,6 @@ class Audition extends Model
         'pay_extras',
     ];
   
-    function __construct(){
-        Audition::setMappingProperties(array(
-        'audition_name' => [
-            'type' => 'string',
-            'analyzer' => 'standard'
-            ],
-        'description' => [
-            'type' => 'string',
-            'analyzer' => 'standard'
-            ],
-        ));
-    }
     
 
     public function agency(){
