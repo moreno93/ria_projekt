@@ -27,6 +27,6 @@ return array(
     | Elastiquent models.
     */
 
-    'default_index' => 'default_index',
+    'default_index' => 'default',
 
 );

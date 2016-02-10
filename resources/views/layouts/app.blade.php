@@ -68,13 +68,19 @@
             <div class="input-group col-md-12">
                 <input type="text" class="form-control input-lg" placeholder="Search" name="query" />
                     <span class="input-group-btn">
+                    <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Search Option <span class="caret"></span></button>
+                        <ul class="dropdown-menu">
+                            <li><input type="radio" name="search_option" id="auditions_radio" value="auditions" checked="checked"><label for="auditions_radio">Auditions</label></li>
+                          <li><input type="radio" name="search_option" id="users_radio" value="users"><label for="users_radio" >Users</label></li>
+                          <li><input type="radio" name="search_option" id="agencies_radio" value="agencies"><label for="agencies_radio">Agencies</label></li>
+                        </ul>
                         <button class="btn btn-info btn-lg" type="submit">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </span>
             </div>
         </form>
-        </div>
+        </div> 
     @endif
 
     <div class="page-container">

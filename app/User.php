@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 
 class User extends Authenticatable
 {
+    use ElasticquentTrait;
     /**
      * The attributes that are mass assignable.
      *
@@ -35,6 +37,30 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    function __construct(){
+        User::setMappingProperties(array(
+        'name' => [
+            'type' => 'string',
+            'analyzer' => 'standard'
+            ],
+        'email' => [
+            'type' => 'string',
+            'analyzer' => 'standard'
+            ],
+        'profession' => [
+            'type' => 'string',
+            'analyzer' => 'standard'
+            ],
+        'about' => [
+            'type' => 'string',
+            'analyzer' => 'standard'
+            ],
+        'interests' => [
+            'type' => 'string',
+            'analyzer' => 'standard'
+            ],
+        ));
+    }
 
     public function agency(){
         return $this->hasOne('App\Agency');

@@ -13,9 +13,9 @@ class Audition extends Model
     	'audition_name',
     	'description',
     ];
-
-    /*
-    protected $mappingProperties = array(
+  
+    function __construct(){
+        Audition::setMappingProperties(array(
         'audition_name' => [
             'type' => 'string',
             'analyzer' => 'standard'
@@ -24,8 +24,9 @@ class Audition extends Model
             'type' => 'string',
             'analyzer' => 'standard'
             ],
-    );
-    */
+        ));
+    }
+    
 
     public function agency(){
     	return $this->belongsTo('App\Agency');
