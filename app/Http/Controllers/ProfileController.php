@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Requests\AddressRequest;
 use App\Http\Controllers\Controller;
 use Image;
+use Hash;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProfileController extends Controller
@@ -36,13 +37,34 @@ class ProfileController extends Controller
 
     }
 
+  
     /**
      * [edit description]
      * @return [type] [description]
      */
     public function update(Request $request, AddressRequest $Arequest)
     { 	
-    	$user = Auth::user()->update($request->all());
+    	
+    	$this->validate($request, [
+        	'name' => 'required|max:255',
+            'about' => 'max:300',
+            'password' => 'required|confirmed|min:6',
+        ]);
+
+        $this->validate($Arequest, [
+        	'address_line1' => 'max:255',
+            'address_line2' => 'max:255',
+            'city' => 'max:255',
+            'state' => 'max:255',
+            'zip_code' => 'min:5|max:5',
+            'country' => 'max:255',
+        ]);
+
+    	$user = Auth::user()->update(['name' => $request->name]);
+    	$user = Auth::user()->update(['about' => $request->about]);
+    	//$user = Auth::user()->update(['name' => $request->name]);
+    	$user = Auth::user()->update(['password' => Hash::make($request->password)]);	
+
     	$address = Auth::user()->address()->update(['address_line1' => $Arequest->address_line1]);
 		$address = Auth::user()->address()->update(['address_line2' => $Arequest->address_line2]);
 		$address = Auth::user()->address()->update(['city' => $Arequest->city]);

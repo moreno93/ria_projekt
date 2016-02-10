@@ -318,52 +318,98 @@
 
                                     <div class="block-inner">
                                                                                 
-                                        <div class="form-group">
+                                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                            
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Full name</label>
                                                     <input type="text" name="name" value="{{ Auth::user()->name }}" class="form-control">
+                                                    @if ($errors->has('name'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('name') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
 
                                             </div>
-                                        </div>
+                                        </div>                                  
                                         
-                                        <div class="form-group">
+                                        <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <label>About</label>
                                                     <textarea style="resize:none" class="form-control" rows="5" name="about">{{ Auth::user()->about }}</textarea>
+                                                    @if ($errors->has('about'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('about') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
 
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+                                        @if($errors->has('address_line1') || $errors->has('address_line2') )
+                                            <div class="form-group has-error">
+                                        @else
+                                            <div class="form-group">
+                                        @endif
+
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <label>Address line 1</label>
                                                     <input type="text" name="address_line1" value="{{ Auth::user()->address->address_line1 }}" class="form-control">
+                                                    @if ($errors->has('address_line1'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('address_line1') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label>Address line 2</label>
                                                     <input type="text" name="address_line2" value="{{ Auth::user()->address->address_line2 }}" class="form-control">
+                                                    @if ($errors->has('address_line2'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('address_line2') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
+                                        
+                                        @if($errors->has('city') || $errors->has('state') || $errors->has('zip_code'))
+                                            <div class="form-group has-error">
+                                        @else
+                                            <div class="form-group">
+                                        @endif
+                              
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <label>City</label>
                                                     <input type="text" name="city" value="{{ Auth::user()->address->city }}" class="form-control">
+                                                    @if ($errors->has('city'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('city') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>State/Province</label>
                                                     <input type="text" name="state" value="{{ Auth::user()->address->state }}" class="form-control">
+                                                    @if ($errors->has('state'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('state') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="col-md-4">
                                                     <label>ZIP code</label>
                                                     <input type="text" name="zip_code" value="{{ Auth::user()->address->zip_code }}" class="form-control">
+                                                    @if ($errors->has('zip_code'))
+                                                        <span class="help-block">
+                                                            <strong>{{ $errors->first('zip_code') }}</strong>
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -391,18 +437,36 @@
 
 
                                     <h6 class="heading-hr"><i class="icon-lock"></i> Security information:</h6>
-
-                                    <div class="form-group">
+                            
+                                    @if($errors->has('password') || $errors->has('password_confirmation'))
+                                        <div class="form-group has-error">
+                                    @else
+                                        <div class="form-group">
+                                    @endif
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <label>New password:</label>
-                                                <input type="password" readonly="readonly" placeholder="Enter new password" class="form-control">
+                                                <input type="password" name="password" placeholder="Enter new password" class="form-control">
+                                                @if ($errors->has('password'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('password') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                             <div class="col-md-6">
                                                 <label>Repeat password:</label>
-                                                <input type="password" readonly="readonly" placeholder="Repeat new password" class="form-control">
+                                                <input type="password" name="password_confirmation" placeholder="Repeat new password" class="form-control">
+                                                @if ($errors->has('password_confirmation'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                    </span>
+                                                @endif
                                             </div>
                                         </div>
+                                        </br>
+
+                                      
+
                                     </div>
 
                                     <div class="form-group">

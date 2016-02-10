@@ -1895,6 +1895,7 @@ a.list-group-item-info.active:focus {
   padding: 0;
   font-size: 12px;
   border: 1px solid #CCC;
+  width: 200px;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
