@@ -46,6 +46,9 @@ Route::group(['middleware' => 'web'], function () {
         App\Audition::createIndex($shards = null, $replicas = null);
     });
     Route::get('/search', 'SearchController@index');
+    Route::get('/search/users', 'SearchController@users');
+    Route::get('/search/agencies', 'SearchController@agencies');
+    Route::get('/search/auditions', 'SearchController@auditions');
 
     Route::get('/home', 'HomeController@index');
     Route::get('/profile', 'ProfileController@index');
