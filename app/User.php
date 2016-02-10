@@ -19,7 +19,7 @@ class User extends Authenticatable
         'email',
         'password',
         'profession',
-        'permission',
+        //'permission',
         'about',
         'profile_pic',
         'interests',
@@ -52,8 +52,19 @@ class User extends Authenticatable
         else
             return false;
     }
+    public function isBlocked(){
+        if (Auth::user()->permission == "1"){
+            return true;
+        }
+        else
+            return false;
+    }
 
     public function auditions(){
         return $this->belongsToMany('App\Audition');
+    }
+
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
     }
 }

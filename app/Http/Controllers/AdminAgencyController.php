@@ -36,4 +36,9 @@ class AdminAgencyController extends Controller
         flash()->success('Agency has been successfully deleted');
         return redirect('/admin');
     }
+
+    //kreiranje nove agencije
+    public function create(){
+        return view('agencies.create');
+    }
 }

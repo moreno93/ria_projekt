@@ -8,7 +8,13 @@
 
     <h3>USERS</h3>
     <table border="1" width="80%">
-
+        <div class="col-md-6 col-md-offset-4">
+            <a href ="/admin/create">
+                <button type="button" class="btn btn-primary">
+                    <i class="fa fa-btn"></i>Create new user
+                </button>
+            </a>
+        </div>
 
         @foreach( $users as $user)
             <h2><tr>
@@ -19,8 +25,24 @@
                                     <i class="fa fa-btn"></i>Edit
                                 </button>
                             </a>
-                            </button>
                         </div>
+                        @if ( $user->permission == 1)
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href ="/admin/{{ $user->id }}/unblock">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-btn"></i>UNBLOCK USER
+                                    </button>
+                                </a>
+                            </div>
+                        @else
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href ="/admin/{{ $user->id }}/block">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-btn"></i>BLOCK USER
+                                    </button>
+                                </a>
+                            </div>
+                        @endif
                         <div class="col-md-6 col-md-offset-4">
                             <form class="delete" action="/admin/{{ $user->id }}" method="POST">
                                 <input type="hidden" name="_method" value="DELETE">
@@ -31,7 +53,6 @@
                             </form>
                         </div>
                     </td>
-
                 </tr>
 
             </h2>

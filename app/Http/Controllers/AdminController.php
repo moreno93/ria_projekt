@@ -46,6 +46,38 @@ class AdminController extends Controller
         return redirect('/admin');
     }
 
+    //redirect na formu za kreiranje novog usera
+    public function create(){
+        return view('admin.createUser');
+    }
 
+
+    //spremi usera u bazu
+    public function store(AdminUserRequest $request){
+        User::create($request->all());
+
+        flash()->success('A new user has been successfully created');
+        return redirect('/admin');
+    }
+
+    //blokiraj usera ( postavi permission u 1 )
+    public function block($id){
+        $user = User::findOrFail($id);
+        $user->permission = '1';
+
+        $user->save();
+        flash()->success('User ' . $user->name .  ' has been blocked');
+        return redirect('/admin');
+    }
+
+    //odblokiraj usera ( postavi permission u 2 )
+    public function unblock($id){
+        $user = User::findOrFail($id);
+        $user->permission = '2';
+
+        $user->save();
+        flash()->success('User ' . $user->name .  ' has been unblocked');
+        return redirect('/admin');
+    }
 
 }

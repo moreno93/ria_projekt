@@ -60,6 +60,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('auditions/{auditions}/users', 'AuditionsController@listAppliedUsers');
 
     Route::resource('admin' , 'AdminController');
+    Route::get('/admin/{id}/block', 'AdminController@block');
+    Route::get('/admin/{id}/unblock', 'AdminController@unblock');
     Route::resource('adminAgency', 'AdminAgencyController');
 });
 

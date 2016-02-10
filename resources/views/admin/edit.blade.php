@@ -63,6 +63,13 @@
                         </div>
                     </div>
                 </form>
+                <div class="col-md-6 col-md-offset-4">
+                    <a href ="/admin">
+                        <button class="btn btn-primary">
+                            <i class="fa fa-btn fa-user"></i>Back
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
