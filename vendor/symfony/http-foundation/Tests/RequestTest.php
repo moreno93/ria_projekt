@@ -17,11 +17,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RequestTest extends \PHPUnit_Framework_TestCase
 {
-    public function testConstructor()
-    {
-        $this->testInitialize();
-    }
-
     public function testInitialize()
     {
         $request = new Request();
@@ -215,7 +210,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/?foo', $request->getRequestUri());
         $this->assertEquals(array('foo' => ''), $request->query->all());
 
-        ## assume rewrite rule: (.*) --> app/app.php ; app/ is a symlink to a symfony web/ directory
+        // assume rewrite rule: (.*) --> app/app.php; app/ is a symlink to a symfony web/ directory
         $request = Request::create('http://test.com/apparthotel-1234', 'GET', array(), array(), array(),
             array(
                 'DOCUMENT_ROOT' => '/var/www/www.test.com',
@@ -356,18 +351,18 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $server['SERVER_PORT'] = '8080';
 
         $server['QUERY_STRING'] = 'query=string';
-        $server['REQUEST_URI'] = '/adminIndex.blade.php/path/info?query=string';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['REQUEST_URI'] = '/index.php/path/info?query=string';
+        $server['SCRIPT_NAME'] = '/index.php';
         $server['PATH_INFO'] = '/path/info';
-        $server['PATH_TRANSLATED'] = 'redirect:/adminIndex.blade.php/path/info';
+        $server['PATH_TRANSLATED'] = 'redirect:/index.php/path/info';
         $server['PHP_SELF'] = '/index_dev.php/path/info';
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
 
         $request = new Request();
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host:8080/adminIndex.blade.php/path/info?query=string', $request->getUri(), '->getUri() with non default port');
+        $this->assertEquals('http://host:8080/index.php/path/info?query=string', $request->getUri(), '->getUri() with non default port');
 
         // Use std port number
         $server['HTTP_HOST'] = 'host';
@@ -376,7 +371,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host/adminIndex.blade.php/path/info?query=string', $request->getUri(), '->getUri() with default port');
+        $this->assertEquals('http://host/index.php/path/info?query=string', $request->getUri(), '->getUri() with default port');
 
         // Without HOST HEADER
         unset($server['HTTP_HOST']);
@@ -385,11 +380,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://servername/adminIndex.blade.php/path/info?query=string', $request->getUri(), '->getUri() with default port without HOST_HEADER');
+        $this->assertEquals('http://servername/index.php/path/info?query=string', $request->getUri(), '->getUri() with default port without HOST_HEADER');
 
-        // Request with URL REWRITING (hide adminIndex.blade.php)
+        // Request with URL REWRITING (hide index.php)
         //   RewriteCond %{REQUEST_FILENAME} !-f
-        //   RewriteRule ^(.*)$ adminIndex.blade.php [QSA,L]
+        //   RewriteRule ^(.*)$ index.php [QSA,L]
         // http://host:8080/path/info?query=string
         $server = array();
         $server['HTTP_HOST'] = 'host:8080';
@@ -398,12 +393,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $server['REDIRECT_QUERY_STRING'] = 'query=string';
         $server['REDIRECT_URL'] = '/path/info';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
         $server['QUERY_STRING'] = 'query=string';
         $server['REQUEST_URI'] = '/path/info?toto=test&1=1';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
-        $server['PHP_SELF'] = '/adminIndex.blade.php';
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
+        $server['PHP_SELF'] = '/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('http://host:8080/path/info?query=string', $request->getUri(), '->getUri() with rewrite');
@@ -436,7 +431,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             'QUERY_STRING' => 'query=string',
             'REQUEST_URI' => '/ba%20se/index_dev.php/foo%20bar/in+fo?query=string',
             'SCRIPT_NAME' => '/ba se/index_dev.php',
-            'PATH_TRANSLATED' => 'redirect:/adminIndex.blade.php/foo bar/in+fo',
+            'PATH_TRANSLATED' => 'redirect:/index.php/foo bar/in+fo',
             'PHP_SELF' => '/ba se/index_dev.php/path/info',
             'SCRIPT_FILENAME' => '/some/where/ba se/index_dev.php',
         );
@@ -483,18 +478,18 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $server['SERVER_PORT'] = '8080';
 
         $server['QUERY_STRING'] = 'query=string';
-        $server['REQUEST_URI'] = '/adminIndex.blade.php/path/info?query=string';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['REQUEST_URI'] = '/index.php/path/info?query=string';
+        $server['SCRIPT_NAME'] = '/index.php';
         $server['PATH_INFO'] = '/path/info';
-        $server['PATH_TRANSLATED'] = 'redirect:/adminIndex.blade.php/path/info';
+        $server['PATH_TRANSLATED'] = 'redirect:/index.php/path/info';
         $server['PHP_SELF'] = '/index_dev.php/path/info';
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
 
         $request = new Request();
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host:8080/adminIndex.blade.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with non default port');
+        $this->assertEquals('http://host:8080/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with non default port');
 
         // Use std port number
         $server['HTTP_HOST'] = 'host';
@@ -503,7 +498,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://host/adminIndex.blade.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port');
+        $this->assertEquals('http://host/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port');
 
         // Without HOST HEADER
         unset($server['HTTP_HOST']);
@@ -512,11 +507,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('http://servername/adminIndex.blade.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port without HOST_HEADER');
+        $this->assertEquals('http://servername/index.php/some/path', $request->getUriForPath('/some/path'), '->getUriForPath() with default port without HOST_HEADER');
 
-        // Request with URL REWRITING (hide adminIndex.blade.php)
+        // Request with URL REWRITING (hide index.php)
         //   RewriteCond %{REQUEST_FILENAME} !-f
-        //   RewriteRule ^(.*)$ adminIndex.blade.php [QSA,L]
+        //   RewriteRule ^(.*)$ index.php [QSA,L]
         // http://host:8080/path/info?query=string
         $server = array();
         $server['HTTP_HOST'] = 'host:8080';
@@ -525,12 +520,12 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
         $server['REDIRECT_QUERY_STRING'] = 'query=string';
         $server['REDIRECT_URL'] = '/path/info';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
         $server['QUERY_STRING'] = 'query=string';
         $server['REQUEST_URI'] = '/path/info?toto=test&1=1';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
-        $server['PHP_SELF'] = '/adminIndex.blade.php';
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
+        $server['PHP_SELF'] = '/index.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('http://host:8080/some/path', $request->getUriForPath('/some/path'), '->getUri() with rewrite');
@@ -858,7 +853,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         //              $expected                                  $remoteAddr  $httpForwarded                                       $trustedProxies
         return array(
             array(array('127.0.0.1'),                              '127.0.0.1', 'for="_gazonk"',                                      null),
-            array(array('_gazonk'),                                '127.0.0.1', 'for="_gazonk"',                                      array('127.0.0.1')),
+            array(array('127.0.0.1'),                              '127.0.0.1', 'for="_gazonk"',                                      array('127.0.0.1')),
             array(array('88.88.88.88'),                            '127.0.0.1', 'for="88.88.88.88:80"',                               array('127.0.0.1')),
             array(array('192.0.2.60'),                             '::1',       'for=192.0.2.60;proto=http;by=203.0.113.43',          array('::1')),
             array(array('2620:0:1cfe:face:b00c::3', '192.0.2.43'), '::1',       'for=192.0.2.43, for=2620:0:1cfe:face:b00c::3',       array('::1')),
@@ -914,6 +909,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
 
             // client IP with port
             array(array('88.88.88.88'), '127.0.0.1', '88.88.88.88:12345, 127.0.0.1', array('127.0.0.1')),
+
+            // invalid forwarded IP is ignored
+            array(array('88.88.88.88'), '127.0.0.1', 'unknown,88.88.88.88', array('127.0.0.1')),
         );
     }
 
@@ -1112,11 +1110,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $request->getScriptName());
 
         $server = array();
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
 
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/adminIndex.blade.php', $request->getScriptName());
+        $this->assertEquals('/index.php', $request->getScriptName());
 
         $server = array();
         $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
@@ -1125,11 +1123,11 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('/frontend.php', $request->getScriptName());
 
         $server = array();
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['SCRIPT_NAME'] = '/index.php';
         $server['ORIG_SCRIPT_NAME'] = '/frontend.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
-        $this->assertEquals('/adminIndex.blade.php', $request->getScriptName());
+        $this->assertEquals('/index.php', $request->getScriptName());
     }
 
     public function testGetBasePath()
@@ -1138,27 +1136,27 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
-        $server['SCRIPT_NAME'] = '/adminIndex.blade.php';
-        $request->initialize(array(), array(), array(), array(), array(), $server);
-
-        $this->assertEquals('', $request->getBasePath());
-
-        $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
-        $server['PHP_SELF'] = '/adminIndex.blade.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['SCRIPT_NAME'] = '/index.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('', $request->getBasePath());
 
         $server = array();
-        $server['SCRIPT_FILENAME'] = '/some/where/adminIndex.blade.php';
-        $server['ORIG_SCRIPT_NAME'] = '/adminIndex.blade.php';
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['PHP_SELF'] = '/index.php';
+        $request->initialize(array(), array(), array(), array(), array(), $server);
+
+        $this->assertEquals('', $request->getBasePath());
+
+        $server = array();
+        $server['SCRIPT_FILENAME'] = '/some/where/index.php';
+        $server['ORIG_SCRIPT_NAME'] = '/index.php';
         $request->initialize(array(), array(), array(), array(), array(), $server);
 
         $this->assertEquals('', $request->getBasePath());
@@ -1343,8 +1341,8 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($request->setRequestFormat('foo'));
         $this->assertEquals('foo', $request->getRequestFormat(null));
 
-	    $request = new Request(array('_format' => 'foo'));
-	    $this->assertEquals('html', $request->getRequestFormat());
+        $request = new Request(array('_format' => 'foo'));
+        $this->assertEquals('html', $request->getRequestFormat());
     }
 
     public function testHasSession()
@@ -1422,9 +1420,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             array(
                 '/fruit/strawberry/1234index.php/blah',
                 array(
-                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/fruit/adminIndex.blade.php',
-                    'SCRIPT_NAME' => '/fruit/adminIndex.blade.php',
-                    'PHP_SELF' => '/fruit/adminIndex.blade.php',
+                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/fruit/index.php',
+                    'SCRIPT_NAME' => '/fruit/index.php',
+                    'PHP_SELF' => '/fruit/index.php',
                 ),
                 '/fruit',
                 '/strawberry/1234index.php/blah',
@@ -1432,9 +1430,9 @@ class RequestTest extends \PHPUnit_Framework_TestCase
             array(
                 '/fruit/strawberry/1234index.php/blah',
                 array(
-                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/adminIndex.blade.php',
-                    'SCRIPT_NAME' => '/adminIndex.blade.php',
-                    'PHP_SELF' => '/adminIndex.blade.php',
+                    'SCRIPT_FILENAME' => 'E:/Sites/cc-new/public_html/index.php',
+                    'SCRIPT_NAME' => '/index.php',
+                    'PHP_SELF' => '/index.php',
                 ),
                 '',
                 '/fruit/strawberry/1234index.php/blah',
@@ -1811,7 +1809,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase
         $request = Request::create('/');
         $request->headers->set('host', $host);
         $this->assertEquals($host, $request->getHost());
-        $this->assertLessThan(1, microtime(true) - $start);
+        $this->assertLessThan(3, microtime(true) - $start);
     }
 
     /**

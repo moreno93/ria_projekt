@@ -65,6 +65,21 @@
         </ul>
     </div>
 
+    @if(Auth::user())
+        <div id="custom-search-input">
+        <form class="form-horizontal" role="form" method="GET" action="/search">
+            <div class="input-group col-md-12">
+                <input type="text" class="form-control input-lg" placeholder="Search" name="query" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="submit">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </span>
+            </div>
+        </form>
+        </div>
+    @endif
+
     <div class="page-container">
         <div class="page-content">
             <div class="page-header">

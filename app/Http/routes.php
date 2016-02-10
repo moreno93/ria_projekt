@@ -41,6 +41,12 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/profile/phpinfo', function (){
 		return phpinfo();
 	});
+
+    Route::get('/elasticsearch', function(){
+        App\Audition::createIndex($shards = null, $replicas = null);
+    });
+    Route::get('/search', 'SearchController@index');
+
     Route::get('/home', 'HomeController@index');
     Route::get('/profile', 'ProfileController@index');
     Route::put('/profile/update', 'ProfileController@update');

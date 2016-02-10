@@ -83,4 +83,5 @@ class AuditionsController extends Controller
         $users = Audition::findOrFail($id)->users;
         return view('auditions.list_users', compact('users'));
     }
+
 }
