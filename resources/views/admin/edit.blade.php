@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <h3>Edit a User</h3>
+        <h3>Edit a User</h3>
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
                 <form class="form-horizontal" role="form" method="POST" action="{{ action('AdminController@update', ['id' => $user->id]) }}">
                     {!! csrf_field() !!}
                     <input type="hidden" name="_method" value="PUT">
-                    
+
                     <div class="form-group">
                         <label class="col-md-4 control-label">Name</label>
 
@@ -42,7 +42,7 @@
                               <option value="Sound Designer" @if($user->profession == 'Sound Designer') selected @endif>Sound designer</option>
                               <option value="Actor" @if($user->profession == 'Actor') selected @endif>Actor</option>
                             </select>
-                            
+
                         </div>
                     </div>
 
@@ -66,4 +66,5 @@
             </div>
         </div>
     </div>
+
 @endsection

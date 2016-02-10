@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Agency;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,7 +19,8 @@ class AdminController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.adminIndex', compact('users'));
+        $agencies = Agency::all();
+        return view('admin.adminIndex', compact('users','agencies'));
     }
 
     //prikaz forme za uređivanje korisnika
@@ -43,6 +45,7 @@ class AdminController extends Controller
         flash()->success('User has been successfully deleted');
         return redirect('/admin');
     }
+
 
 
 }
