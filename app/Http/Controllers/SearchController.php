@@ -65,4 +65,8 @@ class SearchController extends Controller
     	return view('search', compact('auditions'));
     }
 
+    public function advanced(){
+        return view('advanced_search');
+    }
+
 }

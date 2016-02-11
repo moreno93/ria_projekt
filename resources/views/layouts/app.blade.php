@@ -81,7 +81,7 @@
                             <button class="btn btn-info btn-lg" type="submit">
                                 <i class="glyphicon glyphicon-search"></i>
                             </button>
-                            <a href="/advanced_serach">
+                            <a href="/search/advanced">
                                 <button class="btn btn-info btn-lg advanced" type="button">
                                     <i class="fa fa-database"></i></i>Advanced search
                                 </button>
@@ -152,6 +152,9 @@
     <script src="{{ asset('js/application.js') }}"></script>
 
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+
+    @yield('javascript')
+
 
 </body>
 </html>
