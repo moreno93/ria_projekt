@@ -6455,6 +6455,7 @@ li.plupload_droptext {
 
 
 #custom-search-input{
+    margin: 5px;
     padding: 3px;
     border: solid 1px #E4E4E4;
     border-radius: 6px;
@@ -6466,7 +6467,14 @@ li.plupload_droptext {
     box-shadow: none;
 }
 
-#custom-search-input button{
+#custom-search-input button.advanced {
+    margin-left: 30px;
+    margin-right: 10px;
+    border: 0;
+    padding: 0 8px 0 10px;
+}
+
+#custom-search-input button {
     margin: 2px 0 0 0;
     background: none;
     box-shadow: none;
@@ -6476,8 +6484,12 @@ li.plupload_droptext {
     border-left: solid 1px #ccc;
 }
 
-#custom-search-input button:hover{
+#custom-search-input button.search:hover{
     border: 0;
     box-shadow: none;
     border-left: solid 1px #ccc;
 }
+
+.spacer {  margin-top: 40px; }
+
+.inline { float:left; }

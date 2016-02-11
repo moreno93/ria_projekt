@@ -7,7 +7,15 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+
+                <div class="jumbotron">
+                  <h1>{{ $audition->audition_name }}</h1>
+                  <p>...</p>
+                  <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+                </div>
+
+
+                <!-- <div class="panel-heading">Dashboard</div>
                     <div class="panel-body">
                     Stranica audicije sa id-em {{ $audition->id }} i imenom {{ $audition->audition_name }}
                         <br/>
@@ -82,7 +90,7 @@
                                 @endif
                             </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
