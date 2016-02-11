@@ -34,6 +34,8 @@ class AgenciesController extends Controller
 	public function store(AgencyRequest $request){
     	
     	Auth::user()->agency()->create($request->all());
+        //reindex za elasticsearch
+        Agency::reindex();
     	flash()->success('Agency has been successfully created');
     	return redirect('/');
     }
@@ -57,6 +59,8 @@ class AgenciesController extends Controller
     public function update($id, AgencyRequest $request){
     	$agency = Agency::findOrFail($id);
     	$agency->update($request->all());
+        //reindex za elasticsearch
+        Agency::reindex();
     	flash()->success('Agency has been successfully updated');
     	return redirect('/agencies/' . $id);
     }
@@ -64,6 +68,8 @@ class AgenciesController extends Controller
     //brisanje agencije po id-u
     public function destroy($id){
         Agency::where('id', $id)->delete();
+        //reindex za elasticsearch
+        Agency::reindex();
         flash()->success('Agency has been successfully deleted');
         return redirect('/');
     }

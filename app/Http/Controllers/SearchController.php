@@ -17,7 +17,7 @@ class SearchController extends Controller
 	}
 
     public function index(Request $request){
-
+        
     	$option = $request->input('search_option');
     	$query = $request->input('query');
 
@@ -40,6 +40,7 @@ class SearchController extends Controller
     	if (!User::typeExists()){
     		User::addAllToIndex();
     	}
+        
     	$users = User::search($query);
     	return view('search', compact('users'));
     }

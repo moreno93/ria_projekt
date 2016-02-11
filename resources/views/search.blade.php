@@ -19,7 +19,7 @@
 	@elseif (isset($users))
 		@foreach ($users as $user)
 			<h2>
-				{{ $user->name }}
+				<a href="/profile/{{ $user->id }}">{{ $user->name }}</a>
 			</h2>
 		@endforeach
 	@elseif (isset($agencies))

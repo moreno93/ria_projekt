@@ -26,6 +26,8 @@ class AdminAgencyController extends Controller
     public function update($id, AdminAgencyRequest $request){
         $agency = Agency::findOrFail($id);
         $agency->update($request->all());
+        //reindex za elasticsearch
+        Agency::reindex();
         flash()->success('Agency has been successfully updated');
         return redirect('/admin');
     }
@@ -33,6 +35,8 @@ class AdminAgencyController extends Controller
     //brisanje agencije po id-u
     public function destroy($id){
         Agency::where('id', $id)->delete();
+        //reindex za elasticsearch
+        Agency::reindex();
         flash()->success('Agency has been successfully deleted');
         return redirect('/admin');
     }

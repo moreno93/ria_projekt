@@ -29,6 +29,8 @@ class AuditionsController extends Controller
 	//spremi agenciju u bazu
 	public function store(AuditionRequest $request){
     	Auth::user()->agency()->first()->auditions()->create($request->all());
+        //reindex za elasticsearch
+        Audition::reindex();
     	flash()->success('Audition has been successfully posted');
     	return redirect('/');
     }
@@ -53,6 +55,8 @@ class AuditionsController extends Controller
     public function update($id, AuditionRequest $request){
     	$audition = Audition::findOrFail($id);
     	$audition->update($request->all());
+        //reindex za elasticsearch
+        Audition::reindex();
     	flash()->success('Audition has been successfully updated');
     	return redirect('/auditions/' . $id);
     }
@@ -60,6 +64,8 @@ class AuditionsController extends Controller
     //brisanje agencije po id-u
     public function destroy($id){
         Audition::where('id', $id)->delete();
+        //reindex za elasticsearch
+        Audition::reindex();
         flash()->success('Audition has been successfully deleted');
         return redirect('/');
     }
@@ -76,6 +82,8 @@ class AuditionsController extends Controller
             return view('auditions.exists_error');
         }
         Audition::findOrFail($id)->users()->attach(Auth::user()->id);
+        //reindex za elasticsearch
+        Audition::reindex();
         flash()->success('You have been successfully applied to this audition');
         return redirect('/auditions/' . $id);
     }

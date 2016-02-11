@@ -177,7 +177,8 @@ class ProfileController extends Controller
 		$address = Auth::user()->address()->update(['country' => $Arequest->country]);
 
 		$userId = Auth::user()->id;
-
+        //reindex za elasticsearch
+        User::reindex();
         return redirect('/profile/' . $userId);
     }
 
@@ -196,7 +197,8 @@ class ProfileController extends Controller
     	$user = Auth::user()->update(['profile_pic' => $img_path . Auth::user()->id. '.jpg']);
     
 		$userId = Auth::user()->id;
-
+        //reindex za elasticsearch
+        User::reindex();
         return redirect('/profile/' . $userId);
     }
 

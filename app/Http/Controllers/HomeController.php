@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,11 +27,13 @@ class HomeController extends Controller
      */
 
     public function index()
-    {
+    {   
         if(!($address = Auth::user()->address()->update(['user_id' => Auth::user()->id])))
         {
             $address = Auth::user()->address()->create(['user_id' => Auth::user()->id]);
         }
+        //reindex all users
+        User::reindex();
         return view('home');
     }
 

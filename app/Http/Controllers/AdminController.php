@@ -35,6 +35,8 @@ class AdminController extends Controller
 
         $user = User::findOrFail($id);
         $user->update($request->all());
+        //reindex za elasticsearch
+        User::reindex();
         flash()->success('User has been successfully updated');
         return redirect('/admin');
     }
@@ -42,6 +44,8 @@ class AdminController extends Controller
     //brisanje usera po id-u
     public function destroy($id){
         User::where('id', $id)->delete();
+        //reindex za elasticsearch
+        User::reindex();
         flash()->success('User has been successfully deleted');
         return redirect('/admin');
     }
@@ -65,6 +69,8 @@ class AdminController extends Controller
 
 
         flash()->success('A new user has been successfully created');
+        //reindex za elasticsearch
+        User::reindex();
         return redirect('/admin');
     }
 
@@ -74,6 +80,8 @@ class AdminController extends Controller
         $user->permission = '1';
 
         $user->save();
+        //reindex za elasticsearch
+        User::reindex();
         flash()->success('User ' . $user->name .  ' has been blocked');
         return redirect('/admin');
     }
@@ -84,6 +92,8 @@ class AdminController extends Controller
         $user->permission = '2';
 
         $user->save();
+        //reindex za elasticsearch
+        User::reindex();
         flash()->success('User ' . $user->name .  ' has been unblocked');
         return redirect('/admin');
     }
