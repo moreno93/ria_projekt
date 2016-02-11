@@ -110,6 +110,7 @@
 
             <div class="row">
                 @yield('content') 
+                <br><br>
             </div>
 
             <div class="footer clearfix">

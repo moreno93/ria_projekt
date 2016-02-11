@@ -6489,6 +6489,15 @@ li.plupload_droptext {
     border-left: solid 1px #ccc;
 }
 
-.spacer {  margin-top: 40px; }
+.spacer {  
+  margin-top: 40px; 
+}
 
-.inline { float:left; }
+.inline { 
+  float:left; 
+}
+
+.mini-profile { 
+  width: 64px; 
+  height: 64px;
+}
