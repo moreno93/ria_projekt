@@ -67,29 +67,34 @@
     </div>
 
     @if(Auth::user())
-        <div id="custom-search-input">
-            <form class="form-horizontal" role="form" method="GET" action="/search">
-                <div class="input-group col-md-12">
-                    <input type="text" class="form-control input-lg" placeholder="Search" name="query" />
-                        <span class="input-group-btn">
-                        <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">Search Option <span class="caret"></span></button>
-                            <ul class="dropdown-menu">
-                                <li><input type="radio" name="search_option" id="auditions_radio" value="auditions" checked="checked"><label for="auditions_radio">Auditions</label></li>
-                              <li><input type="radio" name="search_option" id="users_radio" value="users"><label for="users_radio" >Users</label></li>
-                              <li><input type="radio" name="search_option" id="agencies_radio" value="agencies"><label for="agencies_radio">Agencies</label></li>
-                            </ul>
-                            <button class="btn btn-info btn-lg" type="submit">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                            <a href="/search/advanced">
-                                <button class="btn btn-info btn-lg advanced" type="button">
-                                    <i class="fa fa-database"></i></i>Advanced search
-                                </button>
-                            </a>
-                        </span>
+            
+        <!-- Search line -->
+        <form class="search-line block" role="form" method="GET" action="/search">
+            <span class="subtitle"><i class="icon-pencil3"></i> Search Activity:</span>
+            
+            <div class="row">
+                <div class="col-sm-9">
+                    <div class="search-control">
+                        <input type="text" class="form-control autocomplete" name="query" placeholder="What are you looking for?">
+                        <select name="search_option" class="multi-select-search" tabindex="2">
+                            <option id="users_radio" value="users" selected="selected">Users</option> 
+                            <option id="auditions_radio" value="auditions">Auditions</option> 
+                            <option id="agencies_radio" value="agencies">Agencies</option> 
+                        </select>
+                    </div>
                 </div>
-            </form>
-        </div> 
+                <div class="col-sm-3">
+                    <button class="btn btn-primary btn-lg" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+            
+                    <a href="/search/advanced" class="btn btn-info btn-lg advanced">
+                        <i class="fa fa-database"></i></i>Advanced search
+                    </a>
+                </div>
+            </div>
+        </form> 
+        <!-- /search line --> 
 
 
     @endif

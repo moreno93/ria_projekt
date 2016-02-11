@@ -1168,8 +1168,7 @@ ul.list-justified li {
 
 .search-line {
   padding: 15px;
-  background-color: #F9FDFF;
-  border: 1px solid #c7dae3;
+  margin: 0 150px;
 }
 .search-line .form-control {
   background: #fff url(../images/interface/filter.png) no-repeat 12px;

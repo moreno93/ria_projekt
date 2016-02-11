@@ -7,6 +7,7 @@
 @section('content')
     <div class="col-lg-2">
         <div class="block">
+
             <div class="block">
                 <div class="thumbnail">
                     <div class="thumb">
@@ -109,7 +110,7 @@
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="user_2_id" value="{{ $user->id }}">
                                                 <div class="text-right">
-                                                    <input type="submit" value="Remove friend request" class="btn btn-success">
+                                                    <input type="submit" value="Remove friend request" class="btn btn-danger">
                                                 </div>
                                             </form>
                                         @elseif(
@@ -130,7 +131,7 @@
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="user_1_id" value="{{ $user->id }}">
                                                 <div class="text-right">
-                                                    <input type="submit" value="Unfriend" class="btn btn-success">
+                                                    <input type="submit" value="Unfriend" class="btn btn-danger">
                                                 </div>
                                             </form> 
                                         @endif
@@ -189,29 +190,29 @@
                                             
                                             
                                                                              
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        @if( $user->address->city != '')
-                                                            <label>City:</label>
-                                                            <h4>{{ $user->address->city }}</h4>
-                                                        @endif
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    @if( $user->address->city != '')
+                                                        <label>City:</label>
+                                                        <h4>{{ $user->address->city }}</h4>
+                                                    @endif
 
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        @if( $user->address->state != '')
-                                                            <label>State/Province:</label>
-                                                            <h4>{{ $user->address->state }}</h4>
-                                                        @endif
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        @if( $user->address->zip_code != '')
-                                                            <label>Zip code:</label>
-                                                            <h4>{{ $user->address->zip_code }}</h4>
-                                                        @endif
-                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @if( $user->address->state != '')
+                                                        <label>State/Province:</label>
+                                                        <h4>{{ $user->address->state }}</h4>
+                                                    @endif
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @if( $user->address->zip_code != '')
+                                                        <label>Zip code:</label>
+                                                        <h4>{{ $user->address->zip_code }}</h4>
+                                                    @endif
                                                 </div>
                                             </div>
-
+                                            
+                                            
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-md-6">
@@ -232,9 +233,6 @@
                             </div>
                         </div>
                         <!-- /page tabs -->
-
-                    </div>
-                </div>
         </div>
 
     @else
@@ -327,52 +325,6 @@
                                     </div>
                                     <!-- /statistics -->
 
-
-                                    <!-- Search line -->
-                                    <form action="#" class="search-line block" role="form">
-                                        <span class="subtitle"><i class="icon-pencil3"></i> Search Activity:</span>
-                                        <div class="input-group">
-                                            <div class="search-control">
-                                                <input type="text" class="form-control autocomplete" placeholder="What are you looking for?">
-                                                <select multiple="multiple" class="multi-select-search" tabindex="2">
-                                                    <option value="Everywhere" selected="selected">Everywhere</option> 
-                                                    <option value="Users">Users</option> 
-                                                    <option value="Profiles">Profiles</option> 
-                                                    <option value="Images">Images</option> 
-                                                    <option value="Connections">Connections</option> 
-                                                    <option value="Gallery">Gallery</option> 
-                                                    <option value="Posts">Posts</option> 
-                                                </select>
-                                            </div>
-                                            <span class="input-group-btn">
-                                                <button class="btn btn-primary" type="button">Search</button>
-                                            </span>
-                                        </div>
-                                    </form> 
-                                    <!-- /search line -->
-
-                                    <!-- WYSIWYG editor -->
-                                    <h6><i class="icon-bubble6"></i> Share your thoughts</h6>
-                                    <form class="block well" action="#" role="form">
-                                        <div class="block-inner">
-                                            <textarea class="editor" placeholder="Create new entry..."></textarea>
-                                        </div>
-                                        <div class="form-actions text-right">
-                                            <button type="submit" class="btn btn-danger">Cancel</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
-                                    <!-- /WYSIWYG editor -->
-
-
-                                    <!-- Alert -->
-                                    <div class="alert alert-warning fade in block">
-                                        <button type="button" class="close" data-dismiss="alert">×</button>
-                                        <i class="icon-info"></i> Nullam tincidunt dapibus nisi. Aenean porttitor egestas dolor, ut pretium enim vehicula at. Vivamus vulputate risus felis, eget blandit urna aliquam at
-                                    </div>
-                                    <!-- /alert -->
-
-
                                     <!-- Recent activity -->
                                     <div class="block">
                                         <h6 class="heading-hr"><i class="icon-people"></i> Recent activity</h6>
@@ -390,70 +342,6 @@
                                                 </div>
                                             </li>
 
-                                            <li class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="http://placehold.it/300" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <div class="clearfix">
-                                                        <a href="#" class="media-heading">Martin Wolf</a>
-                                                        <span class="media-notice">December 12, 2013 / 10:14 pm</span>
-                                                    </div>
-                                                    Cras tempus pretium ligula, quis viverra purus eleifend et.
-                                                </div>
-                                            </li>
-
-                                            <li class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="http://placehold.it/300" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <div class="clearfix">
-                                                        <a href="#" class="media-heading">Duncan McMart</a>
-                                                        <span class="media-notice">January 3, 2014 / 12:14 pm</span>
-                                                    </div>
-                                                    Quisque dignissim nibh nec massa egestas interdum. Proin congue vulputate velit, sodales mattis neque tempor a.
-                                                </div>
-                                            </li>
-
-                                            <li class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="http://placehold.it/300" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <div class="clearfix">
-                                                        <a href="#" class="media-heading">Lucy Smith</a>
-                                                        <span class="media-notice">January 22, 2014 / 10:26 pm</span>
-                                                    </div>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget orci non sem sodales dictum.
-                                                </div>
-                                            </li>
-
-                                            <li class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="http://placehold.it/300" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <div class="clearfix">
-                                                        <a href="#" class="media-heading">Angel Nowak</a>
-                                                        <span class="media-notice">January 24, 2014 / 10:20 am</span>
-                                                    </div>
-                                                    Mauris vulputate bibendum justo non pretium. Sed eleifend, est vitae pellentesque condimentum, lacus ligula consectetur dolor, a congue metus odio ut neque.
-                                                </div>
-                                            </li>
-
-                                            <li class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object" src="http://placehold.it/300" alt="">
-                                                </a>
-                                                <div class="media-body">
-                                                    <div class="clearfix">
-                                                        <a href="#" class="media-heading">Barbara Madison</a>
-                                                        <span class="media-notice">February 2, 2014 / 10:47 pm</span>
-                                                    </div>
-                                                    Nullam vel massa blandit turpis sodales consectetur. Maecenas non mattis purus. Nullam vitae risus eu est.
-                                                </div>
-                                            </li>
 
                                             <li class="media">
                                                 <a class="pull-left" href="#">
@@ -602,40 +490,37 @@
                                             </div>
                                         </div>
 
-
+    
                                         <h6 class="heading-hr"><i class="icon-lock"></i> Security information:</h6>
-                                
-                                        @if($errors->has('password') || $errors->has('password_confirmation'))
-                                            <div class="form-group has-error">
-                                        @else
-                                            <div class="form-group">
-                                        @endif
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>New password:</label>
-                                                    <input type="password" name="password" placeholder="Enter new password" class="form-control">
-                                                    @if ($errors->has('password'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('password') }}</strong>
-                                                        </span>
-                                                    @endif
+                                        <div class="block-inner">                            
+                                            @if($errors->has('password') || $errors->has('password_confirmation'))
+                                                <div class="form-group has-error">
+                                            @else
+                                                <div class="form-group">
+                                            @endif
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>New password:</label>
+                                                        <input type="password" name="password" placeholder="Enter new password" class="form-control">
+                                                        @if ($errors->has('password'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('password') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label>Repeat password:</label>
+                                                        <input type="password" name="password_confirmation" placeholder="Repeat new password" class="form-control">
+                                                        @if ($errors->has('password_confirmation'))
+                                                            <span class="help-block">
+                                                                <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label>Repeat password:</label>
-                                                    <input type="password" name="password_confirmation" placeholder="Repeat new password" class="form-control">
-                                                    @if ($errors->has('password_confirmation'))
-                                                        <span class="help-block">
-                                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
+                                                </br>
                                             </div>
-                                            </br>
-
-                                          
-
-                                        </div>
-
+                        
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -706,9 +591,9 @@
                                             <input type="reset" value="Cancel" class="btn btn-default">
                                             <input type="submit" value="Apply changes" class="btn btn-success">
                                         </div>
-
-                                    </form>
-                                    <!-- /profile information -->
+                                    </div>
+                                </form>
+                                <!-- /profile information -->
 
                                 </div>
                                 <!-- /fifth tab -->
@@ -731,37 +616,32 @@
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                                                                                 
                                                         <ul class="media-list">
-                                                        <li class="media">
-                                                            <a class="pull-left" href="/profile/{{$friend->id}}">
-                                                                @if(Auth::user()->profile_pic != '')
-                                                                    <img width="40" height="40" src="{{ asset(Auth::user()->profile_pic) }}">
-                                                                @else
-                                                                    <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
-                                                                @endif
-                                                            </a>
-                                                            <div class="pull-right">
-                                                                <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
-                                                                <input type="submit" value="Accept user" class="btn btn-success">
-                                                            </div>
-                                                            <div class="media-body">
-                                                                <div class="clearfix">
-                                                                    <a href="/profile/{{$friend->id}}" class="media-heading">{{$friend->name}}</a>
+                                                            <li class="media">
+                                                                <a class="pull-left" href="/profile/{{$friend->id}}">
+                                                                    @if(Auth::user()->profile_pic != '')
+                                                                        <img width="40" height="40" src="{{ asset(Auth::user()->profile_pic) }}">
+                                                                    @else
+                                                                        <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
+                                                                    @endif
+                                                                </a>
+                                                                <div class="pull-right">
+                                                                    <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
+                                                                    <input type="submit" value="Accept user" class="btn btn-success">
                                                                 </div>
-                                                            </div>
-                                                        </li>
+                                                                <div class="media-body">
+                                                                    <div class="clearfix">
+                                                                        <a href="/profile/{{$friend->id}}" class="media-heading">{{$friend->name}}</a>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        </ul>
                                                     </form>
                                                     <br>
                                                 @endforeach
                                             @endif
-                                            
-                                        
+
                                     
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- /page tabs -->
-
+                                    </div>
                     </div>
                 </div>
         </div>
