@@ -18,23 +18,24 @@
 		@endforeach
 	@elseif (isset($users))
 		@foreach ($users as $user)
-			
-			<ul class="media-list">
-	            <li class="media">
-	                <a class="pull-left" href="/profile/{{$user->id}}">
-	                    @if($user->profile_pic != '')
-	                        <img width="40" height="40" src="{{ asset($user->profile_pic) }}">
-	                    @else
-	                        <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
-	                    @endif
-	                </a>
-	                <div class="media-body">
-	                    <div class="clearfix">
-	                        <a href="/profile/{{$user->id}}" class="media-heading">{{$user->name}}</a>
-	                    </div>
-	                </div>
-	            </li>
-            </ul>
+			<div class="col-sm-12">
+				<ul class="media-list">
+		            <li class="media">
+		                <a class="pull-left" href="/profile/{{$user->id}}">
+		                    @if($user->profile_pic != '')
+		                        <img width="40" height="40" src="{{ asset($user->profile_pic) }}">
+		                    @else
+		                        <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
+		                    @endif
+		                </a>
+		                <div class="media-body">
+		                    <div class="clearfix">
+		                        <a href="/profile/{{$user->id}}" class="media-heading">{{$user->name}}</a>
+		                    </div>
+		                </div>
+		            </li>
+	            </ul>
+	        </div>
 		@endforeach
 	@elseif (isset($agencies))
 		@foreach ($agencies as $agency)

@@ -81,12 +81,20 @@ class ProfileController extends Controller
  	 */
  	public function accept_friend(Request $request)
  	{
+ 		$friends = Auth::user()->friends_count;
+ 		if(empty($friends))
+ 		{
+ 			$user = Auth::user()->update(['friends_count' => 0]);
+ 		}
+
 	 	$iiww = DB::table('iiww')
 	        ->where('user_1_id', '=', $request->user_1_id)
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->update(['accepted' => 1]);
  		
- 		
+ 		$friends = Auth::user()->friends_count;
+ 		$friends += 1;
+ 		$iiww = Auth::user()->update(['friends_count' => $friends]);
 
  		$user = User::findOrFail($request->user_1_id);
     	return view('profile', compact('user'));
@@ -109,6 +117,10 @@ class ProfileController extends Controller
 	        ->where('user_1_id', '=', Auth::user()->id)
 	        ->where('user_2_id', '=', $request->user_1_id)
 	        ->delete();
+
+	        $friends = Auth::user()->friends_count;
+	 		$friends -= 1;
+	 		$iiww = Auth::user()->update(['friends_count' => $friends]);
         }
         elseif(	DB::table('iiww')
                 ->where('user_1_id', '=', $request->user_1_id)
@@ -120,6 +132,10 @@ class ProfileController extends Controller
 	        ->where('user_1_id', '=', $request->user_1_id)
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->delete();
+	        
+	        $friends = Auth::user()->friends_count;
+	 		$friends -= 1;
+	 		$iiww = Auth::user()->update(['friends_count' => $friends]);
         }
  			
 

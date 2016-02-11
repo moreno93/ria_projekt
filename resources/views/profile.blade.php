@@ -249,18 +249,22 @@
                                     <!-- Statistics -->
                                     <div class="block">
                                         <ul class="statistics list-justified">
-                                            <li>
-                                                <div class="statistics-info">
-                                                    <a href="#" title="" class="bg-success"><i class="icon-user-plus"></i></a>
-                                                    <strong>12,476</strong>
-                                                </div>
-                                                <div class="progress progress-micro">
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                                        <span class="sr-only">60% Complete</span>
+                                            @if( Auth::user()->friends_count != '')
+                                                <li>
+                                                    <div class="statistics-info">
+                                                        <a href="#" title="" class="bg-success"><i class="icon-user-plus"></i></a>
+                                                        <strong>{{ Auth::user()->friends_count }}</strong>
+
                                                     </div>
-                                                </div>
-                                                <span>User registrations</span>
-                                            </li>
+                                                    <div class="progress progress-micro">
+                                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                            <span class="sr-only">60% Complete</span>
+                                                        </div>
+                                                    </div>
+                                                    <span>Friends</span>
+                                                </li>
+                                            @endif
+                                            <!--
                                             <li>
                                                 <div class="statistics-info">
                                                     <a href="#" title="" class="bg-warning"><i class="icon-point-up"></i></a>
@@ -321,6 +325,7 @@
                                                 </div>
                                                 <span>Facebook fans</span>
                                             </li>
+                                            -->
                                         </ul>
                                     </div>
                                     <!-- /statistics -->
