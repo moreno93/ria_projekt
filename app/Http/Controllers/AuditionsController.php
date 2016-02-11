@@ -28,11 +28,12 @@ class AuditionsController extends Controller
 
 	//spremi agenciju u bazu
 	public function store(AuditionRequest $request){
-    	Auth::user()->agency()->first()->auditions()->create($request->all());
+        Auth::user()->agency()->first()->auditions()->create($request->all());
+        $id = Auth::user()->id;
         //reindex za elasticsearch
         Audition::reindex();
-    	flash()->success('Audition has been successfully posted');
-    	return redirect('/');
+        flash()->success('Audition has been successfully posted');
+        return redirect('/agencies/user/' . $id);
     }
 
     //prikaz audicije po id-u

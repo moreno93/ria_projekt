@@ -110,7 +110,7 @@
         </div>
         <br>
 
-        @foreach($agency->auditions as $audition)
+        @foreach($agency->auditions->reverse() as $audition)
         <a href ="/auditions/{{ $audition->id }}/">
             <div class="panel panel-default">
               <div class="panel-heading">
