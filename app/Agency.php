@@ -25,4 +25,8 @@ class Agency extends Model
     public function auditions(){
         return $this->hasMany('App\Audition');
     }
+
+    public function deleteFromIndex(){
+        $this->removeFromIndex();
+    }
 }

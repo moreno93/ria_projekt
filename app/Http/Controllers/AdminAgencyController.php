@@ -34,9 +34,10 @@ class AdminAgencyController extends Controller
 
     //brisanje agencije po id-u
     public function destroy($id){
+        $agency = Agency::where('id', $id)->get();
         Agency::where('id', $id)->delete();
         //reindex za elasticsearch
-        Agency::reindex();
+        $agency->deleteFromIndex();
         flash()->success('Agency has been successfully deleted');
         return redirect('/admin');
     }

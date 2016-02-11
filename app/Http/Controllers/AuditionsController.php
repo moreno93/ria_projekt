@@ -63,9 +63,10 @@ class AuditionsController extends Controller
 
     //brisanje agencije po id-u
     public function destroy($id){
+        $audition = Audition::where('id', $id)->get();
         Audition::where('id', $id)->delete();
         //reindex za elasticsearch
-        Audition::reindex();
+        $audition->deleteFromIndex();
         flash()->success('Audition has been successfully deleted');
         return redirect('/');
     }

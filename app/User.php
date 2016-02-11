@@ -69,4 +69,8 @@ class User extends Authenticatable
     public function auditions(){
         return $this->belongsToMany('App\Audition');
     }
+
+    public function deleteFromIndex(){
+        $this->removeFromIndex();
+    }
 }

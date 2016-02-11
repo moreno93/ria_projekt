@@ -40,4 +40,8 @@ class Audition extends Model
     public function users(){
     	return $this->belongsToMany('App\User');
     }
+
+    public function deleteFromIndex(){
+        $this->removeFromIndex();
+    }
 }
