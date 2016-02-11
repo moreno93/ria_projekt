@@ -45,10 +45,13 @@ class ProfileController extends Controller
         ->count() 
         )
     	{
-    		foreach ($friends = DB::table('iiww')->where('user_2_id', '=', Auth::user()->id)->where('accepted', '=', 0)->get() as $friend)
-            {	
-            	$user_friends = DB::table('users')->where('id', '=', $friend->user_1_id)->get();
-        	}
+    		$user_friends = DB::table('users')
+            ->join('iiww', 'users.id', '=', 'iiww.user_1_id')
+            ->select('users.*')
+            ->where('iiww.user_2_id', '=', Auth::user()->id)
+            ->where('iiww.accepted', '=', 0)
+            ->get();
+
         	return view('profile', compact('user', 'user_friends'));    
     	}
     	return view('profile', compact('user'));
@@ -73,15 +76,14 @@ class ProfileController extends Controller
  
  	public function accept_friend(Request $request)
  	{
- 		
-	 	$iiww == DB::table('iiww')
+	 	$iiww = DB::table('iiww')
 	        ->where('user_1_id', '=', $request->user_1_id)
-	        ->where('user_2_id', '=', $request->user_2_id)
+	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->update(['accepted' => 1]);
  		
  		
 
- 		$user = User::findOrFail($request->user_2_id);
+ 		$user = User::findOrFail($request->user_1_id);
     	return view('profile', compact('user'));
  	}
 

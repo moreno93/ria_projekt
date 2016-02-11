@@ -715,25 +715,42 @@
                                 <!-- Fifth tab -->
                                 <div class="tab-pane fade" id="friends">
 
-                                    <!-- Profile information -->
-                                    <form action="{{ url('/profile/accept_friend') }}" method="POST" class="block" role="form">
-                                        <input type="hidden" name="_method" value="PUT">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <h6 class="heading-hr"><i class="icon-user"></i> Friend requests:</h6>
-
-                                        <div class="block-inner">
+                                    
                                             @if(
                                             DB::table('iiww')
                                             ->where('user_2_id', '=', Auth::user()->id)
                                             ->where('accepted', '=', 0)
                                             ->count() 
                                             )
+                                                <h6 class="heading-hr"><i class="icon-people"></i> Friend requests:</h6>
                                                 @foreach($friends = $user_friends as $friend)
-                                                    <p>{{$friend->name}}</p>
+                                                    <!-- Profile information -->
+                                                    <form action="{{ url('/profile/accept_friend') }}" method="POST" class="block" role="form">
+                                                        <input type="hidden" name="_method" value="PUT">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                                                                
+                                                        <ul class="media-list">
+                                                        <li class="media">
+                                                            <a class="pull-left" href="/profile/{{$friend->id}}">
+                                                                <img class="media-object" src="http://placehold.it/300" alt="">
+                                                            </a>
+                                                            <div class="pull-right">
+                                                                <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
+                                                                <input type="submit" value="Accept user" class="btn btn-success">
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <div class="clearfix">
+                                                                    <a href="/profile/{{$friend->id}}" class="media-heading">{{$friend->name}}</a>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </form>
+                                                    <br>
                                                 @endforeach
                                             @endif
-                                        </div>
-                                    </form>
+                                            
+                                        
+                                    
                                 </div>
 
                             </div>

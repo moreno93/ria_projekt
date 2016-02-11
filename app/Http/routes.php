@@ -57,6 +57,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('/profile/update', 'ProfileController@update');
     Route::post('/profile/update_pic', 'ProfileController@update_pic');
     Route::post('/profile/add_friend', 'ProfileController@add_friend');
+    Route::put('/profile/accept_friend', 'ProfileController@accept_friend');
     
     Route::resource('agencies', 'AgenciesController');
     Route::get('/agencies/user/{user}', 'AgenciesController@userAgency');
