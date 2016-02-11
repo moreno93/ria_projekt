@@ -18,22 +18,36 @@
                     <p>{{ $audition->description }}</p>
                     <p>           
                         @if(Auth::user()->agency()->first())
-                                    @if(!Auth::user()->agency->auditions->contains($audition))
-                                        @if(!$audition->users->contains(Auth::user())) 
-                                            <div class="col-md-6 col-md-offset-4">
-                                                <a href ="/auditions/{{ $audition->id }}/apply">
-                                                    <button type="button" class="btn btn-primary">
-                                                        <i class="fa fa-btn">Apply To Audition</i>
-                                                    </button>
-                                                </a>
-                                            </div>
-                                        @else
-                                            <div class="col-md-6 col-md-offset-4">
-                                                <h3>You are applied to this audition</h3>
-                                            </div>
-                                        @endif
-                                    @endif
+                            @if(!Auth::user()->agency->auditions->contains($audition))
+                                @if(!$audition->users->contains(Auth::user())) 
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <a href ="/auditions/{{ $audition->id }}/apply">
+                                            <button type="button" class="btn btn-primary">
+                                                <i class="fa fa-btn">Apply To Audition</i>
+                                            </button>
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="col-md-6 col-md-offset-4">
+                                        <h3>You are applied to this audition</h3>
+                                    </div>
                                 @endif
+                            @endif
+                        @elseif(!$audition->users->contains(Auth::user())) 
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href ="/auditions/{{ $audition->id }}/apply">
+                                    <button type="button" class="btn btn-primary">
+                                        <i class="fa fa-btn">Apply To Audition</i>
+                                    </button>
+                                </a>
+                            </div>
+                        @else
+                            <div class="col-md-6 col-md-offset-4">
+                                <h3>You are applied to this audition</h3>
+                            </div>
+                        @endif
+                        
+                         
                     </p>
 
                         <div class="row">
