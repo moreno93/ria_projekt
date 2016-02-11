@@ -72,12 +72,12 @@
 
                         <div class="col-md-6">
                             <select class="form-control" name="profession">
-                              <option value="director">Director</option>
-                              <option value="producer">Producer</option>
-                              <option value="cameraman">Cameraman</option>
-                              <option value="filmEditor">Film editor</option>
-                              <option value="soundDesigner">Sound designer</option>
-                              <option value="actor">Actor</option>
+                              <option value="Director">Director</option>
+                              <option value="Producer">Producer</option>
+                              <option value="Cameraman">Cameraman</option>
+                              <option value="Film editor">Film editor</option>
+                              <option value="Sound designer">Sound designer</option>
+                              <option value="Actor">Actor</option>
                             </select>
 
                             @if ($errors->has('profession'))

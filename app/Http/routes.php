@@ -51,7 +51,8 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/search/agencies', 'SearchController@agencies');
     Route::get('/search/auditions', 'SearchController@auditions');
     Route::get('/search/advanced', 'SearchController@advanced');
-
+    Route::get('search/location', 'SearchController@searchByLocation');
+    Route::get('search/salary', 'SearchController@searchBySalary');
 
     Route::get('/home', 'HomeController@index');
 

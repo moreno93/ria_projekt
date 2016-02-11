@@ -8,6 +8,7 @@ use App\Agency;
 use App\Audition;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SearchController extends Controller
 {
@@ -69,4 +70,87 @@ class SearchController extends Controller
         return view('advanced_search');
     }
 
+    public function searchByLocation(Request $request){
+        $query = $request->input('query');
+        $auditions = Audition::searchByQuery([
+        'multi_match' => [
+            'query' => $query,
+            'fields' => ['country', 'city']
+        ]
+    ]);
+    return view('search', compact('auditions'));
+    }
+
+    public function searchBySalary(Request $request){
+        $query = intval($request->input('query'));
+        $profession = Auth::user()->profession;
+        
+    switch ($profession){
+        case 'Director':
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_directors' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+
+        case 'Producer':
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_producers' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+
+        case 'Cameraman':
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_cameraman' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+
+        case 'Film editor':
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_film_editors' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+
+        case 'Sound designer':
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_sound_designers' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+
+        case 'Actor';
+            $auditions = Audition::searchByQuery([
+                'range' => [ 
+                    'pay_actors' =>[
+                        'gte' => $query
+                    ]
+                ]
+            ]);
+            return view('search', compact('auditions'));
+            break;
+        }   
+    }
 }

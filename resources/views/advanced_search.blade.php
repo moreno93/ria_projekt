@@ -14,10 +14,10 @@
     <div class="tab-content">
 
     <div id="home" class="tab-pane fade in active">
-		<form method="GET" action="/search">
+		<form method="GET" action="/search/location">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-				<input type="text" class="form-control" placeholder="Enter location...">
+				<input type="text" class="form-control" placeholder="Enter location..." name="query">
 				<span class="input-group-btn">
 			        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 			    </span>
@@ -26,10 +26,10 @@
     </div>
 
     <div id="menu1" class="tab-pane fade">
-		<form method="GET" action="/search">
+		<form method="GET" action="/search/salary">
 			<div class="input-group">
 				<span class="input-group-addon"><i class="glyphicon glyphicon-eur"></i></span>
-				<input type="text" class="form-control" placeholder="Salary larger than...">
+				<input type="number" class="form-control" placeholder="Salary larger than..." name="query">
 				<span class="input-group-btn">
 			        <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
 			    </span>
