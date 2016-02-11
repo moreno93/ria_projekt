@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-<div class="container">
+<div class="col-md-12">
+	
     <ul class="nav nav-tabs">
     	<li class="active"><a href="#home">Search by location</a></li>
     	<li><a href="#menu1">Search by salary</a></li>
@@ -36,11 +37,10 @@
             </div>
         </form>
     </div>
-
   </div>
-</div>
+	
 <br>
-
+</div>
 @endsection
 
 

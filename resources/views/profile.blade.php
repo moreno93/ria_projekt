@@ -331,32 +331,32 @@
                         <div class="block">
                             <h6 class="heading-hr"><i class="icon-people"></i> Recent activity</h6>
                             <ul class="media-list">
-                                <li class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="http://placehold.it/300" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="clearfix">
-                                            <a href="#" class="media-heading">Eugene Kopyov</a>
-                                            <span class="media-notice">December 10, 2013 / 10:20 pm</span>
+                                @if(DB::table('auditions')
+                                    ->join('audition_user', 'auditions.id', '=', 'audition_user.audition_id')
+                                    ->where('audition_user.user_id', '=', Auth::user()->id)
+                                    ->count() 
+                                )
+                                    @foreach($auditions = $user_audition as $audition)
+                                        <li class="media">
+                                            <div class="media-body">
+                                                <div class="clearfix">
+                                                    <a href="#" class="media-heading">{{ $audition->audition_name}}</a>
+                                                    <span class="media-notice">{{ $audition->city}} | {{ $audition->country}}</span>
+                                                </div>
+                                                {{ $audition->description }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    <li class="media">
+                                        <div class="media-body">
+                                            <div class="clearfix">
+                                                <a href="#" class="media-heading">No activity to display</a>
+                                            </div>
+                                            Search for auditions!
                                         </div>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
-                                    </div>
-                                </li>
-
-
-                                <li class="media">
-                                    <a class="pull-left" href="#">
-                                        <img class="media-object" src="http://placehold.it/300" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <div class="clearfix">
-                                            <a href="#" class="media-heading">James Willings</a>
-                                            <span class="media-notice">February 16, 2014 / 07:28 am</span>
-                                        </div>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc purus lacus, consequat et dui ut, ullamcorper sollicitudin lorem. Donec gravida eget nisi eget congue. Sed varius sollicitudin adipiscing.
-                                    </div>
-                                </li>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <!-- /recent activity -->
