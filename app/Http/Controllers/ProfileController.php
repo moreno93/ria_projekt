@@ -74,6 +74,11 @@ class ProfileController extends Controller
 
     } 
  
+ 	/**
+ 	 * [accept_friend description]
+ 	 * @param  Request $request [description]
+ 	 * @return [type]           [description]
+ 	 */
  	public function accept_friend(Request $request)
  	{
 	 	$iiww = DB::table('iiww')
@@ -87,6 +92,56 @@ class ProfileController extends Controller
     	return view('profile', compact('user'));
  	}
 
+ 	/**
+ 	 * [remove_friend description]
+ 	 * @param  Request $request [description]
+ 	 * @return [type]           [description]
+ 	 */
+ 	public function remove_friend(Request $request)
+ 	{
+ 		if(	DB::table('iiww')
+            ->where('user_1_id', '=', Auth::user()->id)
+            ->where('user_2_id', '=', $request->user_1_id)
+            ->where('accepted', '=', 1)
+            ->count())
+        {
+        	$iiww = DB::table('iiww')
+	        ->where('user_1_id', '=', Auth::user()->id)
+	        ->where('user_2_id', '=', $request->user_1_id)
+	        ->delete();
+        }
+        elseif(	DB::table('iiww')
+                ->where('user_1_id', '=', $request->user_1_id)
+                ->where('user_2_id', '=', Auth::user()->id)
+                ->where('accepted', '=', 1)
+                ->count())
+        {
+        	$iiww = DB::table('iiww')
+	        ->where('user_1_id', '=', $request->user_1_id)
+	        ->where('user_2_id', '=', Auth::user()->id)
+	        ->delete();
+        }
+ 			
+
+ 		$user = User::findOrFail($request->user_1_id);
+    	return view('profile', compact('user'));
+ 	}
+
+ 	/**
+ 	 * [remove_friend_request description]
+ 	 * @param  Request $request [description]
+ 	 * @return [type]           [description]
+ 	 */
+ 	public function remove_friend_request(Request $request)
+ 	{
+ 		$iiww = DB::table('iiww')
+	        ->where('user_1_id', '=', Auth::user()->id)
+	        ->where('user_2_id', '=', $request->user_2_id)
+	        ->delete();	
+
+ 		$user = User::findOrFail($request->user_2_id);
+    	return view('profile', compact('user'));
+ 	}
     /**
      * [edit description]
      * @return [type] [description]

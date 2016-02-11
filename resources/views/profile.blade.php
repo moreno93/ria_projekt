@@ -113,9 +113,14 @@
                                         ->where('accepted', '=', 0)
                                         ->count()
                                         )
-                                            <div class="text-right">
-                                                <a href="#" class="btn btn-success">{{ $user->name }} didn't accept your request</a>
-                                            </div>
+                                            <form action="{{ url('/profile/remove_friend_request') }}" method="POST" class="block" role="form">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="user_2_id" value="{{ $user->id }}">
+                                                <div class="text-right">
+                                                    <input type="submit" value="Remove friend request" class="btn btn-success">
+                                                </div>
+                                            </form>
                                         @elseif(
                                         DB::table('iiww')
                                         ->where('user_1_id', '=', Auth::user()->id)
@@ -129,9 +134,14 @@
                                         ->where('accepted', '=', 1)
                                         ->count()
                                         )
-                                            <div class="text-right">
-                                                <a href="#" class="btn btn-success">{{ $user->name }} is your friend</a>
-                                            </div>
+                                            <form action="{{ url('/profile/remove_friend') }}" method="POST" class="block" role="form">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                <input type="hidden" name="user_1_id" value="{{ $user->id }}">
+                                                <div class="text-right">
+                                                    <input type="submit" value="Unfriend" class="btn btn-success">
+                                                </div>
+                                            </form> 
                                         @endif
 
                                     @else
