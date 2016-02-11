@@ -35,9 +35,11 @@ class AdminController extends Controller
     //brisanje usera po id-u
     public function destroy($id){
         $user = User::where('id', $id)->get();
+        $agency = User::findOrFail($id)->agency()->get();
         User::where('id', $id)->delete();
         //reindex za elasticsearch
         $user->deleteFromIndex();
+        $agency->deleteFromIndex();
         flash()->success('User has been successfully deleted');
         return redirect('/admin');
     }
