@@ -44,7 +44,11 @@
             @else
                 <li class="user dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="http://placehold.it/300">
+                        @if(Auth::user()->profile_pic != '')
+                            <img src="{{ asset(Auth::user()->profile_pic) }}">
+                        @else
+                            <img src="{{ asset('images/profile_pic/default.jpg') }}">
+                        @endif
                         <span>{{ Auth::user()->name }}</span>
                         <i class="caret"></i>
                     </a>

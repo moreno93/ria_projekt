@@ -2,7 +2,6 @@
 
 @section('header')
     <h3>Profile page</h3>
-    <small>User profile layout</small>
 @endsection
 
 @section('content')
@@ -11,22 +10,25 @@
             <div class="block">
                 <div class="thumbnail">
                     <div class="thumb">
-                        <img src="{{ $user->profile_pic }}" alt="">         
+                        @if( $user->profile_pic != '')
+                            <img src="{{ asset($user->profile_pic) }}" alt="">
+                        @else
+                            <img src="{{ asset('images/profile_pic/default.jpg') }}" alt="">         
+                        @endif
                         <div class="thumb-options">
                             <span>
-                                <form action="{{ url('/profile/update_pic') }}" method="POST" class="block" role="form" enctype="multipart/form-data">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                    <button id="btnfile" class="btn btn-icon btn-success" onclick="$('#profile_pic').trigger('click'); return false;">
-                                        <i class="icon-pencil"></i>
-                                    </button>
-                                    <div style="display:none;" class="file_wrapper">
-                                         <input name="profile_pic" type="file" id="profile_pic" onchange="this.form.submit()"> 
-                                    </div>
-                                    
-                                    <a class="btn btn-icon btn-success" href="#">
-                                        <i class="icon-remove"></i>
-                                    </a>
-                                </form>
+                                @if( Auth::user()->id == $user->id)
+                                    <form action="{{ url('/profile/update_pic') }}" method="POST" class="block" role="form" enctype="multipart/form-data">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button id="btnfile" class="btn btn-icon btn-success" onclick="$('#profile_pic').trigger('click'); return false;">
+                                            <i class="icon-pencil"></i>
+                                        </button>
+
+                                        <div style="display:none;" class="file_wrapper">
+                                             <input name="profile_pic" type="file" id="profile_pic" onchange="this.form.submit()"> 
+                                        </div>
+                                    </form>                                    
+                                @endif
                             </span>
                         </div>
                     </div>
@@ -35,17 +37,6 @@
                         {{ $user->name }}
                         <small>{{ $user->profession }}</small>
                         </h6>
-                        <div class="icons-group">
-                            <a class="tip" title="" href="#" data-original-title="Google Drive">
-                                <i class="icon-google-drive"></i>
-                            </a>
-                            <a class="tip" title="" href="#" data-original-title="Twitter">
-                                <i class="icon-twitter"></i>
-                            </a>
-                            <a class="tip" title="" href="#" data-original-title="Github">
-                                <i class="icon-github3"></i>
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -742,7 +733,11 @@
                                                         <ul class="media-list">
                                                         <li class="media">
                                                             <a class="pull-left" href="/profile/{{$friend->id}}">
-                                                                <img class="media-object" src="http://placehold.it/300" alt="">
+                                                                @if(Auth::user()->profile_pic != '')
+                                                                    <img width="40" height="40" src="{{ asset(Auth::user()->profile_pic) }}">
+                                                                @else
+                                                                    <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
+                                                                @endif
                                                             </a>
                                                             <div class="pull-right">
                                                                 <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
