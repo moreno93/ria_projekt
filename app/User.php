@@ -25,6 +25,9 @@ class User extends Authenticatable
         'about',
         'profile_pic',
         'interests',
+        'friends_count',
+        'portfolio',
+        'diploma_certificate',
 
     ];
 

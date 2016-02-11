@@ -58,6 +58,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/profile/{user}', 'ProfileController@show');
     Route::put('/profile/update', 'ProfileController@update');
+    Route::put('/profile/update_password', 'ProfileController@update_password');
     Route::post('/profile/update_pic', 'ProfileController@update_pic');
     Route::post('/profile/add_friend', 'ProfileController@add_friend');
     Route::put('/profile/accept_friend', 'ProfileController@accept_friend');

@@ -82,7 +82,7 @@ class ProfileController extends Controller
  	public function accept_friend(Request $request)
  	{
  		$friends = Auth::user()->friends_count;
- 		if(empty($friends))
+ 		if($friends == null)
  		{
  			$user = Auth::user()->update(['friends_count' => 0]);
  		}
@@ -158,6 +158,27 @@ class ProfileController extends Controller
  		$user = User::findOrFail($request->user_2_id);
     	return view('profile', compact('user'));
  	}
+ 	/**
+ 	 * [update_password description]
+ 	 * @param  Request $request [description]
+ 	 * @return [type]           [description]
+ 	 */
+ 	public function update_password(Request $request)
+ 	{
+ 		$this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+            'old_password' => 'required|min:6',
+        ]);
+		
+		if(Hash::check($request->old_password, Auth::user()->password))
+		{
+			$user = Auth::user()->update(['password' => Hash::make($request->password)]);
+		}
+
+		$userId = Auth::user()->id;
+        return redirect('/profile/' . $userId);
+
+ 	}
     /**
      * [edit description]
      * @return [type] [description]
@@ -167,8 +188,9 @@ class ProfileController extends Controller
     	
     	$this->validate($request, [
         	'name' => 'required|max:255',
-            'about' => 'max:300',
-            'password' => 'required|confirmed|min:6',
+            'about' => 'min:6|max:1000',
+            'portfolio' => 'min:6|max:1000',
+            'diploma_certificate' => 'min:6|max:300',
         ]);
 
         $this->validate($Arequest, [
@@ -180,10 +202,10 @@ class ProfileController extends Controller
             'country' => 'max:255',
         ]);
 
+    	
+    	//$user = Auth::user()->update(['name' => $request->name]);    	
     	$user = Auth::user()->update(['name' => $request->name]);
     	$user = Auth::user()->update(['about' => $request->about]);
-    	//$user = Auth::user()->update(['name' => $request->name]);
-    	$user = Auth::user()->update(['password' => Hash::make($request->password)]);	
 
     	$address = Auth::user()->address()->update(['address_line1' => $Arequest->address_line1]);
 		$address = Auth::user()->address()->update(['address_line2' => $Arequest->address_line2]);
