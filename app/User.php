@@ -46,6 +46,10 @@ class User extends Authenticatable
         return $this->hasOne('App\Address');
     }
 
+    public function friend(){
+        return $this->hasOne('App\Friend');
+    }
+
     public function isAnAdmin(){
 
         if (Auth::user()->permission == "5"){

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use DB;
 use App\User;
 use App\Address;
+use App\Friend;
 use App\Http\Requests;
 use App\Http\Requests\AddressRequest;
 use App\Http\Controllers\Controller;
@@ -35,8 +37,53 @@ class ProfileController extends Controller
     public function show($id)
     {
     	$user = User::findOrFail($id);
+
+    	if(
+        DB::table('iiww')
+        ->where('user_2_id', '=', Auth::user()->id)
+        ->where('accepted', '=', 0)
+        ->count() 
+        )
+    	{
+    		foreach ($friends = DB::table('iiww')->where('user_2_id', '=', Auth::user()->id)->where('accepted', '=', 0)->get() as $friend)
+            {	
+            	$user_friends = DB::table('users')->where('id', '=', $friend->user_1_id)->get();
+        	}
+        	return view('profile', compact('user', 'user_friends'));    
+    	}
     	return view('profile', compact('user'));
     }
+
+    /**
+     * [add_friend description]
+     * @param Request $request [description]
+     */
+    public function add_friend(Request $request)
+    {
+    	$iiww = Friend::create([
+    		'user_1_id' => 	Auth::user()->id,
+    		'user_2_id' => 	$request->user_2_id,
+    		'accepted'	=>	0,
+    		]);
+
+    	$user = User::findOrFail($request->user_2_id);
+    	return view('profile', compact('user'));
+
+    } 
+ 
+ 	public function accept_friend(Request $request)
+ 	{
+ 		
+	 	$iiww == DB::table('iiww')
+	        ->where('user_1_id', '=', $request->user_1_id)
+	        ->where('user_2_id', '=', $request->user_2_id)
+	        ->update(['accepted' => 1]);
+ 		
+ 		
+
+ 		$user = User::findOrFail($request->user_2_id);
+    	return view('profile', compact('user'));
+ 	}
 
     /**
      * [edit description]

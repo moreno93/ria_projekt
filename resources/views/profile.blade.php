@@ -59,9 +59,21 @@
                     <li>
                         <a data-toggle="tab" href="#settings">General Info</a>
                     </li>
-                    <li>
-                        <a href="#">Networks<span class="label label-danger">21</span></a>
-                    </li>
+                    @if(
+                    DB::table('iiww')
+                    ->where('user_2_id', '=', Auth::user()->id)
+                    ->where('accepted', '=', 0)
+                    ->count()                    
+                    )
+                        <li>
+                            <a data-toggle="tab" href="#friends">Friend requests<span class="label label-danger">
+                            {{ DB::table('iiww')
+                            ->where('user_2_id', '=', Auth::user()->id)
+                            ->where('accepted', '=', 0)
+                            ->count() 
+                            }}</span></a>
+                        </li>
+                    @endif
                     <li>
                         <a data-toggle="tab" href="#activity">Activity</a>
                     </li>
@@ -76,13 +88,61 @@
                     <div class="tabbable page-tabs">
                         
                         <div class="tab-content">
+                                    @if(
+                                    DB::table('iiww')
+                                    ->where('user_1_id', '=', Auth::user()->id)
+                                    ->where('user_2_id', '=', $user->id)
+                                    ->count()
+                                    ||
+                                    DB::table('iiww')
+                                    ->where('user_1_id', '=', $user->id)
+                                    ->where('user_2_id', '=', Auth::user()->id)
+                                    ->count()
+                                    )
+                                        
+                                        @if(
+                                        DB::table('iiww')
+                                        ->where('user_1_id', '=', Auth::user()->id)
+                                        ->where('user_2_id', '=', $user->id)
+                                        ->where('accepted', '=', 0)
+                                        ->count()
+                                        ||
+                                        DB::table('iiww')
+                                        ->where('user_1_id', '=', $user->id)
+                                        ->where('user_2_id', '=', Auth::user()->id)
+                                        ->where('accepted', '=', 0)
+                                        ->count()
+                                        )
+                                            <div class="text-right">
+                                                <a href="#" class="btn btn-success">{{ $user->name }} didn't accept your request</a>
+                                            </div>
+                                        @elseif(
+                                        DB::table('iiww')
+                                        ->where('user_1_id', '=', Auth::user()->id)
+                                        ->where('user_2_id', '=', $user->id)
+                                        ->where('accepted', '=', 1)
+                                        ->count()
+                                        ||
+                                        DB::table('iiww')
+                                        ->where('user_1_id', '=', $user->id)
+                                        ->where('user_2_id', '=', Auth::user()->id)
+                                        ->where('accepted', '=', 1)
+                                        ->count()
+                                        )
+                                            <div class="text-right">
+                                                <a href="#" class="btn btn-success">{{ $user->name }} is your friend</a>
+                                            </div>
+                                        @endif
 
-                            <form action="{{ url('/profile/add_friend') }}" method="POST" class="block" role="form">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                <div class="text-right">
+                                    @else
+                                    <form action="{{ url('/profile/add_friend') }}" method="POST" class="block" role="form">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="user_2_id" value="{{ $user->id }}">
+                                        <div class="text-right">
                                             <input type="submit" value="Add friend" class="btn btn-success">
-                                </div>
-                            </form>
+                                        </div>
+                                    </form>
+                                    @endif
                                     <!-- Profile information -->
                                         <h6 class="heading-hr"><i class="icon-user"></i> Profile information:</h6>
 
@@ -651,6 +711,30 @@
 
                                 </div>
                                 <!-- /fifth tab -->
+
+                                <!-- Fifth tab -->
+                                <div class="tab-pane fade" id="friends">
+
+                                    <!-- Profile information -->
+                                    <form action="{{ url('/profile/accept_friend') }}" method="POST" class="block" role="form">
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <h6 class="heading-hr"><i class="icon-user"></i> Friend requests:</h6>
+
+                                        <div class="block-inner">
+                                            @if(
+                                            DB::table('iiww')
+                                            ->where('user_2_id', '=', Auth::user()->id)
+                                            ->where('accepted', '=', 0)
+                                            ->count() 
+                                            )
+                                                @foreach($friends = $user_friends as $friend)
+                                                    <p>{{$friend->name}}</p>
+                                                @endforeach
+                                            @endif
+                                        </div>
+                                    </form>
+                                </div>
 
                             </div>
                         </div>
