@@ -338,9 +338,10 @@
                                 )
                                     @foreach($auditions = $user_audition as $audition)
                                         <li class="media">
+                                            <font color="#475bff"><b>Applied to</b></font>
                                             <div class="media-body">
                                                 <div class="clearfix">
-                                                    <a href="#" class="media-heading">{{ $audition->audition_name}}</a>
+                                                    <a href="/auditions/{{ $audition->id }}" class="media-heading">{{ $audition->audition_name}}</a>
                                                     <span class="media-notice">{{ $audition->city}} | {{ $audition->country}}</span>
                                                 </div>
                                                 {{ $audition->description }}
