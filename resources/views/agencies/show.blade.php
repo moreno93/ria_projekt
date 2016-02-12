@@ -12,8 +12,8 @@
                 <div class="block">
                     <div class="thumbnail">
                         <div class="thumb">
-                            @if( $user->agency_pic != '')
-                                <img src="{{ asset($user->agency_pic) }}" alt="">
+                            @if( $agency->agency_pic != '')
+                                <img src="{{ asset($agency->agency_pic) }}" alt="">
                             @else
                                 <img src="{{ asset('images/agency_pic/default.jpg') }}" alt="">         
                             @endif
