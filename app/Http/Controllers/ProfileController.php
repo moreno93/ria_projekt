@@ -117,12 +117,33 @@ class ProfileController extends Controller
 	        ->where('user_1_id', '=', $request->user_1_id)
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->update(['accepted' => 1]);
- 		
+
+	    $user = DB::table('users')->where('id', '=', $request->user_1_id);
+ 		$friends = $user->friends_count;
+ 		$frends += 1;
+ 		$iiww = $user->update(['friends_count' => $friends]);
+
  		$friends = Auth::user()->friends_count;
  		$friends += 1;
  		$iiww = Auth::user()->update(['friends_count' => $friends]);
 
  		$user = User::findOrFail($request->user_1_id);
+    	return view('profile', compact('user'));
+ 	}
+
+ 	/**
+ 	 * [dont_accept_friend description]
+ 	 * @param  Request $request [description]
+ 	 * @return [type]           [description]
+ 	 */
+ 	public function dont_accept_friend(Request $request)
+ 	{
+ 		$iiww = DB::table('iiww')
+	        ->where('user_1_id', '=', $request->user_1_id)
+	        ->where('user_2_id', '=', Auth::user()->id)
+	        ->delete();
+
+	    $user = User::findOrFail($request->user_1_id);
     	return view('profile', compact('user'));
  	}
 
@@ -144,6 +165,11 @@ class ProfileController extends Controller
 	        ->where('user_2_id', '=', $request->user_1_id)
 	        ->delete();
 
+	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
+	 		$friends = $user->friends_count;
+	 		$frends -= 1;
+	 		$iiww = $user->update(['friends_count' => $friends]);
+
 	        $friends = Auth::user()->friends_count;
 	 		$friends -= 1;
 	 		$iiww = Auth::user()->update(['friends_count' => $friends]);
@@ -158,6 +184,11 @@ class ProfileController extends Controller
 	        ->where('user_1_id', '=', $request->user_1_id)
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->delete();
+
+	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
+	 		$friends = $user->friends_count;
+	 		$frends -= 1;
+	 		$iiww = $user->update(['friends_count' => $friends]);
 	        
 	        $friends = Auth::user()->friends_count;
 	 		$friends -= 1;
@@ -227,11 +258,11 @@ class ProfileController extends Controller
             'zip_code' => 'min:5|max:5',
             'country' => 'max:255',
         ]);
-
     	
-    	//$user = Auth::user()->update(['name' => $request->name]);    	
     	$user = Auth::user()->update(['name' => $request->name]);
     	$user = Auth::user()->update(['about' => $request->about]);
+    	$user = Auth::user()->update(['portfolio' => $request->portfolio]);
+    	$user = Auth::user()->update(['diploma_certificate' => $request->diploma_certificate]);
 
     	$address = Auth::user()->address()->update(['address_line1' => $Arequest->address_line1]);
 		$address = Auth::user()->address()->update(['address_line2' => $Arequest->address_line2]);
@@ -256,7 +287,7 @@ class ProfileController extends Controller
 
     	$img_path = 'images/profile_pic/';
     	$pic = $request->file('profile_pic');
-    	$img = Image::canvas(300, 300, '#ccc')->save($img_path . 'default.jpg');
+    	//$img = Image::canvas(300, 300, '#ccc')->save($img_path . 'default.jpg');
     	$img = Image::make($pic)->resize(300, 300)->save($img_path . Auth::user()->id. '.jpg');
     	$user = Auth::user()->update(['profile_pic' => $img_path . Auth::user()->id. '.jpg']);
     

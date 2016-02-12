@@ -64,6 +64,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::put('/profile/accept_friend', 'ProfileController@accept_friend');
     Route::delete('/profile/remove_friend', 'ProfileController@remove_friend');
     Route::delete('/profile/remove_friend_request', 'ProfileController@remove_friend_request');
+    Route::delete('/profile/dont_accept_friend', 'ProfileController@dont_accept_friend');
     
     Route::resource('agencies', 'AgenciesController');
     Route::get('/agencies/user/{user}', 'AgenciesController@userAgency');

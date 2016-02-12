@@ -351,7 +351,7 @@
                                     <li class="media">
                                         <div class="media-body">
                                             <div class="clearfix">
-                                                <a href="#" class="media-heading">No activity to display</a>
+                                                <p class="media-heading">No activity to display</p>
                                             </div>
                                             Search for auditions!
                                         </div>
@@ -581,11 +581,7 @@
                         )
                             <h6 class="heading-hr"><i class="icon-people"></i> Friend requests:</h6>
                             @foreach($friends = $user_friends as $friend)
-                                <!-- Profile information -->
-                                <form action="{{ url('/profile/accept_friend') }}" method="POST" class="block" role="form">
-                                    <input type="hidden" name="_method" value="PUT">
-                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                                            
+                                <!-- Profile information -->                                                         
                                     <ul class="media-list">
                                         <li class="media">
                                             <a class="pull-left" href="/profile/{{$friend->id}}">
@@ -595,18 +591,29 @@
                                                     <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
                                                 @endif
                                             </a>
-                                            <div class="pull-right">
-                                                <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
-                                                <input type="submit" value="Accept user" class="btn btn-success">
-                                            </div>
                                             <div class="media-body">
                                                 <div class="clearfix">
                                                     <a href="/profile/{{$friend->id}}" class="media-heading">{{$friend->name}}</a>
                                                 </div>
                                             </div>
+                                            <div class="pull-right">
+                                                <form action="{{ url('/profile/accept_friend') }}" method="POST" class="block" role="form">
+                                                    <input type="hidden" name="_method" value="PUT">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                    <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-success">
+                                                    <input type="submit" value="Accept user" class="btn btn-success">
+                                                </form>
+                                            </div>
+                                            <div class="pull-right">
+                                                <form action="{{ url('/profile/dont_accept_friend') }}" method="POST" class="block" role="form">
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">                     
+                                                    <input type="hidden" name="user_1_id" value="{{ $friend->id }}" class="btn btn-danger">
+                                                    <input type="submit" value="Don't accept user" class="btn btn-danger">
+                                                </form>
+                                            </div>
                                         </li>
                                     </ul>
-                                </form>
                                 <br>
                             @endforeach
                         @endif 
