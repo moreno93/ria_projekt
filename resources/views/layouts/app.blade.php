@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>RIA Projekt</title>
+    <title>CrewQ</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -27,9 +27,9 @@
     <div class="navbar navbar-inverse" role="navigation">
         <div class="navbar-header">
             @if (Auth::guest())
-                <a class="navbar-brand" href="{{ url('/') }}">RIA Projekt</a>
+                <a class="navbar-brand" href="{{ url('/') }}">CrewQ</a>
             @else
-                <a class="navbar-brand" href="{{ url('/home') }}">RIA Projekt</a>
+                <a class="navbar-brand" href="{{ url('/home') }}">CrewQ</a>
             @endif
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-icons">
                 <span class="sr-only">Toggle navbar</span>

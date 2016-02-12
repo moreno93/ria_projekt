@@ -33,18 +33,15 @@ Route::group(['middleware' => 'web'], function () {
 	Route::get('/', function () {
     return view('welcome');
 	});
-	
     Route::auth();
-    Route::get('/', function () {
-    return view('welcome');
-	});
-
+    
 	Route::get('/profile/phpinfo', function (){
 		return phpinfo();
 	});
 
     Route::get('/elasticsearch', function(){
         App\Audition::createIndex($shards = null, $replicas = null);
+        return redirect('/home');
     });
     Route::get('/search', 'SearchController@index');
     Route::get('/search/users', 'SearchController@users');

@@ -14,7 +14,7 @@
             <!-- /.col-md-8 -->
             <div class="col-md-5">
                 <h2><strong>Join the community!</strong></h2>
-                <p><h4>RIA projekt is a community oriented tool aimed to help moviemaking professionals and amateurs alike connect, crate bussiness relationships and advance their careers even faster.</h4></p>
+                <p><h4>CrewQ is a community oriented tool aimed to help moviemaking professionals and amateurs alike connect, crate bussiness relationships and advance their careers even faster.</h4></p>
                 <a href="{{ url('/register') }}">
                     <button type="button" class="btn btn-danger">
                         <i class="fa fa-btn"></i>Register
