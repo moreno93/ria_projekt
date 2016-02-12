@@ -120,7 +120,11 @@ class ProfileController extends Controller
 
 	    $user = DB::table('users')->where('id', '=', $request->user_1_id);
  		$friends = $user->friends_count;
- 		$frends += 1;
+ 		if($friends == null)
+ 		{
+ 			$friends = 0;
+ 		}
+ 		$friends += 1;
  		$iiww = $user->update(['friends_count' => $friends]);
 
  		$friends = Auth::user()->friends_count;
@@ -167,7 +171,7 @@ class ProfileController extends Controller
 
 	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
 	 		$friends = $user->friends_count;
-	 		$frends -= 1;
+	 		$friends -= 1;
 	 		$iiww = $user->update(['friends_count' => $friends]);
 
 	        $friends = Auth::user()->friends_count;
@@ -187,7 +191,7 @@ class ProfileController extends Controller
 
 	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
 	 		$friends = $user->friends_count;
-	 		$frends -= 1;
+	 		$friends -= 1;
 	 		$iiww = $user->update(['friends_count' => $friends]);
 	        
 	        $friends = Auth::user()->friends_count;
