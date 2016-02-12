@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Agency;
@@ -34,15 +33,17 @@ class AgenciesController extends Controller
 	public function store(AgencyRequest $request){
     	
     	Auth::user()->agency()->create($request->all());
+        $id = Auth::user()->id;
         //reindex za elasticsearch
         Agency::reindex();
     	flash()->success('Agency has been successfully created');
-    	return redirect('/');
+    	return redirect('/agencies/user/' . $id);
     }
 
     //prikaz agencije(profila) po id-u
     public function show($id){
     	$agency = Agency::findOrFail($id);
+
     	return view('agencies.show', compact('agency'));
     }
 

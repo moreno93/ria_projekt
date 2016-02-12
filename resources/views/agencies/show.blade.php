@@ -40,8 +40,8 @@
                     <h6>Owner:</h6>
                 </div>       
                 <div class="col-md-6">
-                    <h6>Pero Peric</h6>
-                </div>    
+                    <h6>Pero Perić</h6>
+                </div>
             </div>  
 
             <div class="row spacer">

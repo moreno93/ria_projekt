@@ -285,6 +285,15 @@
                         </div>
                     </div>
                 </form>
+                <div class="form-group">
+                    <a href="{{ Request::header("referer") }}">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fa fa-btn fa-plus"></i>Cancel
+                            </button>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
