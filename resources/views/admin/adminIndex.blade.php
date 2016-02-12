@@ -18,8 +18,9 @@
 
         @foreach( $users as $user)
             <h2><tr>
-                    <td>
+                    <td><a class="pull-left" href="/profile/{{$user->id}}">
                         {{ $user->name }}
+                        </a>
                     </td>
                     <td><div class="col-md-6 col-md-offset-4">
                             <a href ="/admin/{{ $user->id }}/edit">
