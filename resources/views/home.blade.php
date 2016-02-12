@@ -17,7 +17,7 @@
 			                    @endif
 							</div>
 						<div class="media-body">
-							<h4 class="media-heading"><a href="/auditions/{{ $audition->id }}">{{ $audition->audition_name }}</a> by <a href="/auditions/{{ $audition->agency->id }}">{{ $audition->agency->agency_name }}</a></h4>
+							<h4 class="media-heading"><a href="/auditions/{{ $audition->id }}">{{ $audition->audition_name }}</a> by <a href="/agencies/{{ $audition->agency->id }}">{{ $audition->agency->agency_name }}</a></h4>
 							<p>{{ $audition->city }},{{ $audition->country }} - {{ date('F d, Y', strtotime($audition->created_at)) }}</p>
 							<p>Budget: {{ $audition->budget }}</p>
 							<p>{{ $audition->description }}</p>
