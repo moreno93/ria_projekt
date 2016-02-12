@@ -37,7 +37,8 @@ class ProfileController extends Controller
     public function show($id)
     {
     	$user = User::findOrFail($id);
-    	$user_friend = '';
+    	$user_friends = '';
+    	$user_friends_a = '';
     	$user_audition = '';
 
     	if(DB::table('auditions')
@@ -65,7 +66,21 @@ class ProfileController extends Controller
             ->where('iiww.accepted', '=', 0)
             ->get();    
     	}
-    	return view('profile', compact('user', 'user_friends'));
+    	if(
+        DB::table('iiww')
+        ->where('accepted', '=', 1)
+        ->count() 
+        )
+    	{
+    		$user_friends_a = DB::table('users')
+            ->join('iiww', 'users.id', '=', 'iiww.user_1_id')
+            ->select('users.*')
+            ->where('iiww.accepted', '=', 1)
+            ->where('iiww.user_2_id', '=', Auth::user()->id)
+            ->orWhere('iiww.user_1_id', '=', Auth::user()->id)
+            ->get();    
+    	}
+    	return view('profile', compact('user', 'user_friends', 'user_audition', 'user_friends_a'));
     }
 
     /**
