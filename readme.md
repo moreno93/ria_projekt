@@ -1,4 +1,4 @@
-## Projekt "Glumci i redatelji"
+## Projekt "CrewQ"
 
 This is a small college project build with Laravel PHP framework
 
