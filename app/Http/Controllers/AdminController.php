@@ -38,6 +38,7 @@ class AdminController extends Controller
         $agency = User::findOrFail($id)->agency()->get();
         User::where('id', $id)->delete();
         //reindex za elasticsearch
+        User::reindex();
         $user->deleteFromIndex();
         $agency->deleteFromIndex();
         flash()->success('User has been successfully deleted');

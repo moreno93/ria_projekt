@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Audition;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +35,9 @@ class HomeController extends Controller
         }
         //reindex all users
         User::reindex();
-        return view('home');
-    }
 
+        $auditions = Audition::orderBy('created_at', 'DESC')->paginate(10);
+
+        return view('home', compact('auditions'));
+    }
 }
