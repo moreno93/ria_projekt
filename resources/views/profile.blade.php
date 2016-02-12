@@ -623,7 +623,8 @@
                         <h6 class="heading-hr"><i class="icon-people"></i> Friend list:</h6>
                             @if($user_friends_a != 0)
                                 @foreach($friends = $user_friends_a as $friend)
-                                    <!-- Profile information -->                                                                                           
+                                    <!-- Profile information -->                 
+                                    @if(Auth::user()->id != $friend->id)                               
                                         <ul class="media-list">
                                             <li class="media">
                                                 <a class="pull-left" href="/profile/{{$friend->id}}">
@@ -641,6 +642,7 @@
                                                 </div>
                                             </li>
                                         </ul>
+                                    @endif
                                     <br>
                                 @endforeach
                             @endif

@@ -72,13 +72,28 @@ class ProfileController extends Controller
         ->count() 
         )
     	{
+    		/*
+    		select * from homestead.users where users.id = 
+    		(select homestead.iiww.user_1_id from homestead.iiww) 
+    		or users.id = 
+    		(select homestead.iiww.user_2_id from homestead.iiww)
+    		*/
     		$user_friends_a = DB::table('users')
-            ->join('iiww', 'users.id', '=', 'iiww.user_1_id')
-            ->select('users.*')
-            ->where('iiww.accepted', '=', 1)
-            ->where('iiww.user_2_id', '=', Auth::user()->id)
-            ->orWhere('iiww.user_1_id', '=', Auth::user()->id)
-            ->get();    
+            ->whereIn('id', function($query)
+            {
+            	$query->select(DB::raw(1))
+            	->from('iiww')
+            	->whereRaw('iiww.user_1_id = users.id');
+            }
+            )
+            ->orWhereIn('id', function($query)
+            {
+            	$query->select(DB::raw(1))
+            	->from('iiww')
+            	->whereRaw('iiww.user_2_id = users.id');
+            }
+            )
+            ->get();  
     	}
     	return view('profile', compact('user', 'user_friends', 'user_audition', 'user_friends_a'));
     }
@@ -118,18 +133,22 @@ class ProfileController extends Controller
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->update(['accepted' => 1]);
 
-	    $user = DB::table('users')->where('id', '=', $request->user_1_id);
+	    $friends = Auth::user()->friends_count;
+ 		$friends += 1;
+ 		$iiww = Auth::user()->update(['friends_count' => $friends]);
+
+	    $user = User::where('id', '=', $request->user_1_id)->get();
+	    $user = $user->first();
  		$friends = $user->friends_count;
  		if($friends == null)
  		{
  			$friends = 0;
  		}
  		$friends += 1;
- 		$iiww = $user->update(['friends_count' => $friends]);
-
- 		$friends = Auth::user()->friends_count;
- 		$friends += 1;
- 		$iiww = Auth::user()->update(['friends_count' => $friends]);
+ 		$user->friends_count = $friends;
+	 	$user->save();
+		
+ 		
 
  		$user = User::findOrFail($request->user_1_id);
     	return view('profile', compact('user'));
@@ -169,10 +188,12 @@ class ProfileController extends Controller
 	        ->where('user_2_id', '=', $request->user_1_id)
 	        ->delete();
 
-	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
+	        $user = User::where('id', '=', $request->user_1_id)->get();
+		    $user = $user->first();
 	 		$friends = $user->friends_count;
 	 		$friends -= 1;
-	 		$iiww = $user->update(['friends_count' => $friends]);
+	 		$user->friends_count = $friends;
+		 	$user->save();
 
 	        $friends = Auth::user()->friends_count;
 	 		$friends -= 1;
@@ -189,10 +210,12 @@ class ProfileController extends Controller
 	        ->where('user_2_id', '=', Auth::user()->id)
 	        ->delete();
 
-	        $user = DB::table('users')->where('id', '=', $request->user_1_id);
+	        $user = User::where('id', '=', $request->user_1_id)->get();
+		    $user = $user->first();
 	 		$friends = $user->friends_count;
 	 		$friends -= 1;
-	 		$iiww = $user->update(['friends_count' => $friends]);
+	 		$user->friends_count = $friends;
+		 	$user->save();
 	        
 	        $friends = Auth::user()->friends_count;
 	 		$friends -= 1;
