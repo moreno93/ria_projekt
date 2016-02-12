@@ -13,7 +13,7 @@
 							    @if( $audition->agency->agency_pic != '')
 			                        <img class="mini-img" src="{{ asset($audition->agency->agency_pic) }}" alt="">
 			                    @else
-			                        <img class="mini-img" src="{{ asset('images/agency_pic/default.jpg') }}" alt="">         
+			                        <img class="mini-img" src="{{ asset('images/agency_pic/default.png') }}" alt="">         
 			                    @endif
 							</div>
 						<div class="media-body">

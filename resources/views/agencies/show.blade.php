@@ -15,7 +15,7 @@
                             @if( $agency->agency_pic != '')
                                 <img src="{{ asset($agency->agency_pic) }}" alt="">
                             @else
-                                <img src="{{ asset('images/agency_pic/default.jpg') }}" alt="">         
+                                <img src="{{ asset('images/agency_pic/default.png') }}" alt="">         
                             @endif
                             <div class="thumb-options">
                                 <span>
