@@ -39,6 +39,7 @@ class ProfileController extends Controller
     	$user = User::findOrFail($id);
     	$user_friends = '';
     	$user_friends_a = '';
+    	$user_friends_b = '';
     	$user_audition = '';
 
     	if(DB::table('auditions')
@@ -72,30 +73,21 @@ class ProfileController extends Controller
         ->count() 
         )
     	{
-    		/*
-    		select * from homestead.users where users.id = 
-    		(select homestead.iiww.user_1_id from homestead.iiww) 
-    		or users.id = 
-    		(select homestead.iiww.user_2_id from homestead.iiww)
-    		*/
     		$user_friends_a = DB::table('users')
-            ->whereIn('id', function($query)
-            {
-            	$query->select(DB::raw(1))
-            	->from('iiww')
-            	->whereRaw('iiww.user_1_id = users.id');
-            }
-            )
-            ->orWhereIn('id', function($query)
-            {
-            	$query->select(DB::raw(1))
-            	->from('iiww')
-            	->whereRaw('iiww.user_2_id = users.id');
-            }
-            )
-            ->get();  
+            ->join('iiww', 'users.id', '=', 'iiww.user_1_id')
+            ->select('users.*')
+            ->where('iiww.accepted', '=', 1)
+            ->where('iiww.user_2_id', '=', Auth::user()->id)
+            ->get();    
+
+            $user_friends_b = DB::table('users')
+            ->join('iiww', 'users.id', '=', 'iiww.user_2_id')
+            ->select('users.*')
+            ->where('iiww.accepted', '=', 1)
+            ->where('iiww.user_1_id', '=', Auth::user()->id)
+            ->get();    
     	}
-    	return view('profile', compact('user', 'user_friends', 'user_audition', 'user_friends_a'));
+    	return view('profile', compact('user', 'user_friends', 'user_audition', 'user_friends_a', 'user_friends_b'));
     }
 
     /**

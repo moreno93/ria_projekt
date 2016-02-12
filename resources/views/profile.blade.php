@@ -646,6 +646,31 @@
                                     <br>
                                 @endforeach
                             @endif
+                            @if($user_friends_b != 0)
+                                @foreach($friends = $user_friends_b as $friend)
+                                    <!-- Profile information -->                 
+                                    @if(Auth::user()->id != $friend->id)                               
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <a class="pull-left" href="/profile/{{$friend->id}}">
+                                                    @if($friend->profile_pic != '')
+                                                        <img width="40" height="40" src="{{ asset($friend->profile_pic) }}">
+                                                    @else
+                                                        <img width="40" height="40" src="{{ asset('images/profile_pic/default.jpg') }}">
+                                                    @endif
+                                                </a>
+                                                <div class="media-body">
+                                                    <div class="clearfix">
+                                                        <a href="/profile/{{$friend->id}}" class="media-heading">{{$friend->name}}</a>
+                                                    </div>
+                                                    {{$friend->about}}
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    @endif
+                                    <br>
+                                @endforeach
+                            @endif
                     </div>           
                 </div>
             </div>

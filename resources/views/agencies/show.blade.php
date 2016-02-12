@@ -6,6 +6,7 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-12">
         <div class="col-md-2">
             <div class="block">
                 <div class="block">
@@ -160,7 +161,7 @@
         @endforeach
 
     </div>
-
+</div>
 <script>
     $(".delete").submit(function(){
         return confirm("Are you sure you want to delete this item?");
