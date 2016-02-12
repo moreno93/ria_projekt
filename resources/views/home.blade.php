@@ -4,54 +4,32 @@
     <h3>Home page</h3>
 @endsection
 @section('content')
-	<div class="col-md-12">
-	    <ul class="nav nav-tabs">
-	    	<li class="active"><a href="#home">Recent auditions</a></li>
-	    	<li><a href="#menu1">Friends activity</a></li>
-	    </ul>
-	    <div class="tab-content">
-	    <div id="home" class="tab-pane fade in active">
-			<div class="media">
-				  <div class="media-body">
-				  @foreach($auditions as $audition)
-				  		<a href="auditions/{{ $audition->id }}">
-				    		<h2 class="media-heading">{{ $audition->audition_name }}</h2>
-				    	</a>
-
-				    Agency: <a href="agencies/{{ $audition->agency_id }}">
-							  	<i>{{ $audition->agency->agency_name }}</i>
-							</a>
-				    <br>
-				    Location: <i>{{ $audition->city }},{{ $audition->country }}</i>
-				    <br><hr>
-				    @endforeach
-				  </div>
+	<div class="col-md-8 col-md-offset-2">
+		@foreach($auditions as $audition)
+			<div class="row">
+				<div class="col-md-12">
+					<div class="media">
+							<div class="media-left">
+							    @if( $audition->agency->agency_pic != '')
+			                        <img class="mini-img" src="{{ asset($audition->agency->agency_pic) }}" alt="">
+			                    @else
+			                        <img class="mini-img" src="{{ asset('images/agency_pic/default.jpg') }}" alt="">         
+			                    @endif
+							</div>
+						<div class="media-body">
+							<h4 class="media-heading"><a href="/auditions/{{ $audition->id }}">{{ $audition->audition_name }}</a> by <a href="/auditions/{{ $audition->agency->id }}">{{ $audition->agency->agency_name }}</a></h4>
+							<p>{{ $audition->city }},{{ $audition->country }} - {{ date('F d, Y', strtotime($audition->created_at)) }}</p>
+							<p>Budget: {{ $audition->budget }}</p>
+							<p>{{ $audition->description }}</p>
+					  	</div>
+					</div>
+					{!! $auditions->render() !!}
 				</div>
-				{!! $auditions->render() !!}
 			</div>
-			
-	    <div id="menu1" class="tab-pane fade">
-			<p>
-				Audicije frendova
-			</p>
-	    </div>
-	  </div>
-	  <br>
-  </div>
+		</a>
+		<hr>
+		@endforeach
+	</div>
+		
 @endsection
 
-@section('javascript')
-	<script>
-		$(document).ready(function(){
-		    $(".nav-tabs a").click(function(){
-		        $(this).tab('show');
-		    });
-		    $('.nav-tabs a').on('shown.bs.tab', function(event){
-		        var x = $(event.target).text();         // active tab
-		        var y = $(event.relatedTarget).text();  // previous tab
-		        $(".act span").text(x);
-		        $(".prev span").text(y);
-		    });
-		});
-	</script>
-@endsection

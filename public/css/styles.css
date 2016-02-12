@@ -6501,3 +6501,9 @@ li.plupload_droptext {
   width: 64px; 
   height: 64px;
 }
+
+.mini-img {
+  width: 100px;
+  height: 100px;
+}
+
