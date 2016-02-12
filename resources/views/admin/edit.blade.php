@@ -22,15 +22,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">Email</label>
-
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" name="email" value="{{ $user->email }}">
-
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label class="col-md-4 control-label">Profession</label>
 
                         <div class="col-md-6">
@@ -50,6 +41,30 @@
 
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="interests" value="{{ $user->interests }}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">About</label>
+
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="about" value="{{ $user->about }}"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Portfolio</label>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="portfolio" value="{{ $user->portfolio }}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Certificates</label>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="diploma_certificate" value="{{ $user->diploma_certificate }}">
 
                         </div>
                     </div>

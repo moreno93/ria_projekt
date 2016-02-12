@@ -17,7 +17,10 @@
 				  		<a href="auditions/{{ $audition->id }}">
 				    		<h2 class="media-heading">{{ $audition->audition_name }}</h2>
 				    	</a>
-				    Agency: <i>{{ $audition->agency->agency_name }}</i>
+
+				    Agency: <a href="agencies/{{ $audition->agency_id }}">
+							  	<i>{{ $audition->agency->agency_name }}</i>
+							</a>
 				    <br>
 				    Location: <i>{{ $audition->city }},{{ $audition->country }}</i>
 				    <br><hr>

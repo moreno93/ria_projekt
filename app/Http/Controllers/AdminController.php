@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserRequest;
+use App\Http\Requests\AdminUserEditRequest;
 class AdminController extends Controller
 {
     public function __construct(){
@@ -24,7 +25,7 @@ class AdminController extends Controller
         return view('admin.edit', compact('user'));
     }
     //spremanje promjena u bazu
-    public function update($id, AdminUserRequest $request){
+    public function update($id, AdminUserEditRequest $request){
         $user = User::findOrFail($id);
         $user->update($request->all());
         //reindex za elasticsearch

@@ -17,7 +17,10 @@
         </div>
 
         @foreach( $users as $user)
-            <h2><tr>
+            <h2><tr align="center">
+                    <td>
+                        <strong>{{ $user->id }}</strong>
+                    </td>
                     <td><a class="pull-left" href="/profile/{{$user->id}}">
                         {{ $user->name }}
                         </a>
@@ -69,8 +72,13 @@
 
 
     @foreach( $agencies as $agency)
-            <h2><tr>
-                    <td>{{ $agency->agency_name }}</td>
+            <h2><tr align="center">
+                    <td> <strong>{{ $agency->id }}</strong>
+                    </td>
+                    <td><a class="pull-left" href="/agencies/{{$agency->id}}">
+                            {{ $agency->agency_name }}
+                        </a>
+                    </td>
                     <td><div class="col-md-6 col-md-offset-4">
                             <a href ="/adminAgency/{{ $agency->id }}/edit">
                                 <button type="button" class="btn btn-primary">
