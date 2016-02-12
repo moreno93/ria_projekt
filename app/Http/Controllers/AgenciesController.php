@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Agency;
 use App\Http\Requests\AgencyRequest;
 use Illuminate\Support\Facades\Auth;
+use Image;
+use Hash;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 class AgenciesController extends Controller
@@ -87,5 +90,25 @@ class AgenciesController extends Controller
         $agency = Agency::where('user_id', $id)->first();
         $user = User::where('id', $id)->first();
         return view('agencies.show', compact('agency', 'user'));
+    }
+
+    /**
+     * [update_pic description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function update_pic($id, Request $request)
+    {
+        $agency = Agency::findOrFail($id);
+        $img_path = 'images/agency_pic/';
+        $pic = $request->file('agency_pic');
+        //$img = Image::canvas(300, 300, '#ccc')->save($img_path . 'default.jpg');
+        $img = Image::make($pic)->resize(300, 300)->save($img_path . $agency->id. '.jpg');
+        $agency = $agency->update(['agency_pic' => $img_path . $agency->id. '.jpg']);
+    
+        $userId = Auth::user()->id;
+        //reindex za elasticsearch
+        User::reindex();
+        return redirect('/agencies/user/' . $userId);
     }
 }

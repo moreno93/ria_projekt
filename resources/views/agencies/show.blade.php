@@ -11,8 +11,28 @@
                 <div class="block">
                     <div class="thumbnail">
                         <div class="thumb">
-                            <img src="/images/agency_pic/default.jpg" alt=""> 
-                        </div> 
+                            @if( $user->agency_pic != '')
+                                <img src="{{ asset($user->agency_pic) }}" alt="">
+                            @else
+                                <img src="{{ asset('images/agency_pic/default.jpg') }}" alt="">         
+                            @endif
+                            <div class="thumb-options">
+                                <span>
+                                    @if( Auth::user()->id == $user->id)
+                                        <form action="/agencies/{{ $agency->id }}/update_pic" method="POST" class="block" role="form" enctype="multipart/form-data">
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button id="btnfile" class="btn btn-icon btn-success" onclick="$('#agency_pic').trigger('click'); return false;">
+                                                <i class="icon-pencil"></i>
+                                            </button>
+
+                                            <div style="display:none;" class="file_wrapper">
+                                                 <input name="agency_pic" type="file" id="agency_pic" onchange="this.form.submit()"> 
+                                            </div>
+                                        </form>                                    
+                                    @endif
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

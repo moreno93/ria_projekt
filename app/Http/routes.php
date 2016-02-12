@@ -68,6 +68,7 @@ Route::group(['middleware' => 'web'], function () {
     
     Route::resource('agencies', 'AgenciesController');
     Route::get('/agencies/user/{user}', 'AgenciesController@userAgency');
+    Route::post('/agencies/{id}/update_pic', 'AgenciesController@update_pic');
 
     Route::resource('auditions', 'AuditionsController');
     Route::get('/auditions/agency/{agency}', 'AuditionsController@listAuditionsOfAgency');
