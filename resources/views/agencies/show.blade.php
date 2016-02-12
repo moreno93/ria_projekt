@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-    <h3><strong>{{ $agency->agency_name }}</strong><small>Agency Overview</small></h3> 
+    <h3><strong>{{ $agency->agency_name }}</strong><small>Agency Overview</small></h3>
 @endsection
 
 @section('content')
@@ -19,30 +19,46 @@
 
             <div class="row">
                 <div class="col-md-6">
-                    <h6>Headquaters:</h6>
-                </div>       
-                <div class="col-md-6">
-                    <h6>Sisak</h6>   
-                </div>    
-            </div> 
-
-            <div class="row">
-                <div class="col-md-6">
-                    <h6>Fundation year:</h6>
-                </div>       
-                <div class="col-md-6">
-                    <h6>1902.</h6>
-                </div>    
+                    <h6>Headquarters:</h6>
+                </div>
+                @if ($agency->headquarters)
+                    <div class="col-md-6">
+                        <h6>{{ $agency->headquarters }}</h6>
+                    </div>
+                @else
+                    <div class="col-md-6">
+                        <h6>/</h6>
+                    </div>
+                @endif
             </div>
 
             <div class="row">
                 <div class="col-md-6">
                     <h6>Owner:</h6>
-                </div>       
-                <div class="col-md-6">
-                    <h6>Pero Perić</h6>
                 </div>
-            </div>  
+                <a class="pull-left" href="/profile/{{$user->id}}">
+                    <div class="col-md-6">
+                        <h6>{{ $user->name }}</h6>
+                    </div>
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Fundation year:</h6>
+                </div>
+                @if ($agency->foundation_year)
+                    <div class="col-md-6">
+                        <h6>{{ $agency->foundation_year }}</h6>
+                    </div>
+                @else
+                    <div class="col-md-6">
+                        <h6>/</h6>
+                    </div>
+                @endif
+            </div>
+
+
 
             <div class="row spacer">
                 @if(Auth::user()->id == $agency->user_id)
@@ -59,7 +75,7 @@
                         <form class="delete" action="/agencies/{{ $agency->id }}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                            <button type="submit" class="btn btn-default">
+                            <button type="submit" class="btn btn-danger">
                                 <i class="fa fa-trash"></i>Delete
                             </button>
                         </form>
@@ -82,7 +98,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                {{ $agency->agency_description }}
+                {{ $agency->description }}
             </div>
         </div>
 

@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-4 control-label">email</label>
+                        <label class="col-md-4 control-label">Email</label>
 
                         <div class="col-md-6">
                             <input type="text" class="form-control" name="email" value="{{ $user->email }}">
@@ -45,7 +45,6 @@
 
                         </div>
                     </div>
-
                     <div class="form-group">
                         <label class="col-md-4 control-label">Interests</label>
 
@@ -58,7 +57,7 @@
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">
-                                <i class="fa fa-btn fa-edit"></i>Edit
+                                <i class="fa fa-btn fa-edit">Edit</i>
                             </button>
                         </div>
                     </div>
@@ -66,7 +65,7 @@
                 <div class="col-md-6 col-md-offset-4">
                     <a href ="/admin">
                         <button class="btn btn-primary">
-                            <i class="fa fa-btn fa-user"></i>Back
+                            <i class="fa fa-btn fa-user">Back</i>
                         </button>
                     </a>
                 </div>

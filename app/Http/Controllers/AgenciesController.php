@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -40,11 +42,12 @@ class AgenciesController extends Controller
     	return redirect('/agencies/user/' . $id);
     }
 
-    //prikaz agencije(profila) po id-u
+    //prikaz agencije(profila) po id-u i dohvaćanje usera za prikaz podataka
     public function show($id){
     	$agency = Agency::findOrFail($id);
-
-    	return view('agencies.show', compact('agency'));
+        $user_id = DB::table('agencies')->where('id', $id)->pluck('user_id');
+        $user = User::where('id', $user_id)->first();
+    	return view('agencies.show', compact('agency', 'user'));
     }
 
     //prikaz forme za uređivanje agencije
@@ -81,7 +84,8 @@ class AgenciesController extends Controller
     }
 
     public function userAgency($id){
-        $agency = Agency::where('user_id', $id)->first();    
-        return view('agencies.show', compact('agency'));
+        $agency = Agency::where('user_id', $id)->first();
+        $user = User::where('id', $id)->first();
+        return view('agencies.show', compact('agency', 'user'));
     }
 }

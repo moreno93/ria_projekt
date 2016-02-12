@@ -18,7 +18,9 @@
 
         @foreach( $users as $user)
             <h2><tr>
-                    <td>{{ $user->name }}</td>
+                    <td>
+                        {{ $user->name }}
+                    </td>
                     <td><div class="col-md-6 col-md-offset-4">
                             <a href ="/admin/{{ $user->id }}/edit">
                                 <button type="button" class="btn btn-primary">
