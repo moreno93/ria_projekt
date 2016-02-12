@@ -105,7 +105,8 @@ class AgenciesController extends Controller
         //$img = Image::canvas(300, 300, '#ccc')->save($img_path . 'default.jpg');
         $img = Image::make($pic)->resize(300, 300)->save($img_path . $agency->id. '.jpg');
         $agency = $agency->update(['agency_pic' => $img_path . $agency->id. '.jpg']);
-
+    
+        $userId = Auth::user()->id;
         return redirect('/agencies/user/' . $userId);
     }
 }
